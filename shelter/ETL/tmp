@@ -1,18 +1,22 @@
 
-db_key = os.environ['db_key']
-db_secret = os.environ['db_secret']
-db_access = os.environ['db_access']
-client = dropbox.client.DropboxClient(db_access)
-meta = client.metadata('/2015 Nepal EQ/04 im/reporting/Database_&_Template/Incoming/31 July 2015', list=True)
-file_list = [str(f['path']) for f in meta['contents'] if re.search('xls|xlsx$',str(f))]
-in_mem_file = cStringIO.StringIO()
-location = file_list[0]
-with client.get_file(location) as f:
-    in_mem_file.write(f.read())
+import dropbox
+import os
+import cStringIO
+import re
+from openpyxl import load_workbook
 
-wb = load_workbook(in_mem_file, data_only=True)
-s = wb.get_sheet_by_name('Database')
-
+str(s.cell('A2').value)
 
 for i in range(1,101):
-        s.cell(row = i, column = j).value
+    s.cell(row = i, column = 3).value
+
+db = ws.get_sheet_by_name('Database')
+ref = ws.get_sheet_by_name('Reference')
+
+ws = load_workbook('/Users/ewanog/code/nepal-earthquake/shelter/etl/test_sheet.xlsx', data_only=True)
+db = ws.get_sheet_by_name('Database')
+ref = ws.get_sheet_by_name('Reference')
+
+import etl
+f = etl.test()
+etl.clean_file(f,'jan/test')

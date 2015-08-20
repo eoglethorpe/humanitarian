@@ -1,0 +1,12 @@
+import unittest
+import etl
+import clean
+
+sample_wb = load_workbook('/Users/ewanog/code/nepal-earthquake/shelter/etl/test_sheet.xlsx')
+db = sample_wb.get_sheet_by_name('Database')
+ref = sample_wb.get_sheet_by_name('Reference')
+
+class TestClean(unittest.TestCase):
+    def test_algo1(self):
+        self.assertEqual(tuple(clean.algo1(db, 'A', ref, 'A')), 
+            tuple(['notincluded1','notincluded2','notincluded3']))

@@ -4,9 +4,11 @@
 ##qualify sheets as being valid before cycling or skip invalid ones?
 ##pull from rules based text file
 ##log put on dbox, make better
-
+##test individual cleaning
+##upload new version
 
 import dropbox
+import clean
 import os
 import cStringIO
 import re
@@ -19,8 +21,8 @@ db_secret = os.environ['db_secret']
 db_access = os.environ['db_access']
 client = dropbox.client.DropboxClient(db_access)
 
-DB_PATH = '/2015 Nepal EQ/04 im/reporting/Database_&_Template/Incoming/7 August 2015'
-TEST_FILE = '/4W worldrenew_sheltercluster_August 5, 2015 FINAL.xlsx'
+DB_PATH = '/Users/ewanog/code/nepal-earthquake/shelter/etl'
+TEST_FILE = '/test_sheet.xlsx'
 
 def iterate_reports():
     """cycle through all reports contained in dbox directory"""
@@ -38,56 +40,75 @@ def iterate_reports():
         clean_file(wb_current, f)
 
 
-def clean_file(wb, path):
-    #TODO: log
-    """cycle through reports and apply cleaning algorithms"""
+def clean_file(wb, path): 
+    """cycle through a report and apply cleaning algorithms"""
     
     #get our two sheets
-    db = wb.get_sheet_by_name('Database')
+    db = wb.get_sheet_by_name('Distributions')
     ref = wb.get_sheet_by_name('Reference')
 
     #setup log
+    rname =  path.rsplit('/', 1)[1]
+    print 'RN IS: ' + rname
+    report_line = '***Report for ' + rname
+    report_a_log(report_line, rname)
+
 
     #####do edit stuff
 
+    #algo1
+    print "RET IS: " + clean.algo1(db,ref)
+    report_a_log(clean.algo1(db,ref), rname)
 
-    #***Column A must be in Reference>ImplementingAgency 
-    ##if not: make a note
-    db_col_loc = find_in_header(db, 'Implementing agency')
-    ref_col_loc = find_in_header(ref,'Implementing_Agency_Name')
 
-    missing_names = colvals_notincol(db, db_col_loc, ref, ref_col_loc)
+    #dummy empty log to send to finalize logging
+    report_a_log(' ','text')
 
     #upload with name of file at end
+    #we need to upload the new version!!!!!!!!
     #client.put_file(DB_PATH + '/edited/' + path.rsplit('/', 1)[1], pull_file(path))
     print 'uploaded! ' + path
 
-new_report = False
+report_recvd = False
+current_path = ''
+current_log = []
+old_path = ""
+
 def report_a_log(log_value, path):
     """write out contents for a given log - ends if a new path is given"""
+    #todo: this is gross
+    global report_recvd
+    global current_path
+    global current_log
+    global old_path
 
     #if module is starting and we haven't logged anything
-    if 'current_path' not in locals():
-        current_path = path.rsplit('/', 1)[1]
-        new_report = True
+    if not report_recvd:
+        current_path = path
+        report_recvd = True
+        current_log.append(log_value)
+        current_log.append('')
+        old_path = path
     
     #if we are recieving a new path
-    elif current_path != path.rsplit('/', 1)[1]:
-        current_path = path.rsplit('/', 1)[1] 
-        new_report = True
-
-    if new_report:
+    elif current_path != path:
+        current_path = path
+        
         #write out
-        with open('/Users/ewanog/code/nepal-earthquake/shelter/etl/etl/' 
-            + path.rsplit('/', 1)[1] + '.txt', "w") as f:
+        with open('/Users/ewanog/code/nepal-earthquake/shelter/etl/etl/logs/' 
+            + old_path + '.txt', 'w') as f:
             for log in current_log:
-                
+                f.write(str(log)+'\n')
+        f.close()
 
+        #create new current_log
         current_log = [log_value]
+        current_log.append('')
+        old_path = path
 
-
-
-
+    else:
+        current_log.append(log_value)
+        current_log.append('')
 
 def find_in_header(sheet, find_val):
     """find the coordinate of a value in header (assumes header is in row 1)"""
@@ -183,7 +204,7 @@ def pull_file(location):
     return to_ret
 
 def test():
-    return pull_wb(DB_PATH+TEST_FILE)
+    return load_workbook('/Users/ewanog/code/nepal-earthquake/shelter/etl/clean_test.xlsx', data_only=True)
 
 if __name__ == '__main__':
     iterate_reports()
