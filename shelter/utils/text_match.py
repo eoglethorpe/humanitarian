@@ -1,3 +1,7 @@
+"""A module to iterate through a list of known and possibly mispelled
+	words in order to easily find correct spellings
+"""
+
 #TODO: create GUI or CLI commands
 ##store corrected words
 ##option to skip
