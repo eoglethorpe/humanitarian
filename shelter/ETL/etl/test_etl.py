@@ -4,11 +4,18 @@ from openpyxl import load_workbook
 import os 
 
 
+sample_wb_new_format = load_workbook('/Users/ewanog/code/nepal-earthquake/shelter/etl/clean_test.xlsx')
 sample_wb = load_workbook('/Users/ewanog/code/nepal-earthquake/shelter/etl/etl_test.xlsx')
 db = sample_wb.get_sheet_by_name('Database')
 ref = sample_wb.get_sheet_by_name('Reference')
 
 class TestEtl(unittest.TestCase):
+
+    def test_wb_format_false(self):
+        self.assertEqual(etl.wb_format(sample_wb), False)
+
+    def test_wb_format_true(self):
+        self.assertEqual(etl.wb_format(sample_wb_new_format), True)
 
     def test_find_last_value_row(self):
         self.assertEqual(etl.find_last_value(ref, 'A', 'r'), 'Z1')

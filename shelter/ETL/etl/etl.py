@@ -13,6 +13,7 @@ import os
 import cStringIO
 import re
 from openpyxl import load_workbook
+import openpyxl.writer.excel as wrtex
 
 
 #dropbox setup
@@ -21,7 +22,7 @@ db_secret = os.environ['db_secret']
 db_access = os.environ['db_access']
 client = dropbox.client.DropboxClient(db_access)
 
-DB_PATH = '/Users/ewanog/code/nepal-earthquake/shelter/etl'
+DB_PATH = '/2015 Nepal EQ/04 IM/Reporting/Incoming_submissions_Z/'
 TEST_FILE = '/test_sheet.xlsx'
 
 def iterate_reports():
@@ -29,16 +30,60 @@ def iterate_reports():
 
     meta = client.metadata(DB_PATH, list=True)
     file_list = [str(f['path']) for f in meta['contents'] if re.search('xls|xlsx$',str(f))]
+    exclude = [
+    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/3w-Habitat for Humanity - 8-14-2015 dwld.xlsx',
+    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/2015 08 20_ CARE_Shelter 4Ws_final.xlsx',
+    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/ADRA - 20082015.xlsx',
+    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/Caritas Switzerland - 17082015.xlsx',
+    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/CDRA Nepal.xlsx',
+    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/Child Space 19 August 2015.xlsx',
+    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/Copy of Cesvi 18082015_sheltercluster.xlsx',
+    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/Copy of reportingtemplate_sheltercluster_v4.0_5.xlsx',
+    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/CRS-Caritas - 20082015.xlsx',
+    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/Germany-GIZ.xlsx',
+    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/IOM 18 August 2015.xlsx',
+    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/ISR-NEPAL 4W Templete.xlsx'
+    ]
+
+    for v in exclude:
+        file_list.remove(v)
+
     #file_list = [DB_PATH+"/Batas Foundation.xlsx/"]
     for f in file_list:
         #pull down workbook from specified directory
         print "pulling! " + f
         wb_current = pull_wb(f)
 
-        #clean the workboook
-        print "cleaning " + f
-        clean_file(wb_current, f)
+        #check to see if properly formatted
+        if wb_format(wb_current):
+            #clean the workboook
+            print "cleaning " + f
+            clean_file(wb_current, f)
 
+        else:
+            #put in malformatted folder
+            print 'malformatted ' + f
+            path = DB_PATH + '/old_format_or_incorrect/' + f.rsplit('/', 1)[1]
+            #send_wb(path, wb_current)
+
+def send_wb(path, wb):
+    print 'sending! ' + path
+    client.put_file(path, wrtex.save_virtual_workbook(wb))
+
+
+def wb_format(wb):
+    """check to see if a report is correct and in the new report format"""
+    must_contain = ['Guidance Note', 'Distributions', 'Training', 'Reference']
+
+    match_count = 0
+    for s in wb.worksheets:
+        if s.title in must_contain:
+            match_count+=1
+
+    if match_count < 4:
+        return False
+    else:
+        return True
 
 def clean_file(wb, path): 
     """cycle through a report and apply cleaning algorithms"""
@@ -49,16 +94,88 @@ def clean_file(wb, path):
 
     #setup log
     rname =  path.rsplit('/', 1)[1]
-    print 'RN IS: ' + rname
     report_line = '***Report for ' + rname
     report_a_log(report_line, rname)
 
 
     #####do edit stuff
+    #algos return db, ref, message
 
     #algo1
-    print "RET IS: " + clean.algo1(db,ref)
-    report_a_log(clean.algo1(db,ref), rname)
+    db, ref, message = clean.algo1(db,ref) 
+    report_a_log(message, rname)
+
+    #algo2
+    db, ref, message = clean.algo2(db,ref)
+    report_a_log(message, rname)
+
+    #algo3
+#    db, ref, message = clean.algo3(db,ref)
+#    report_a_log(message, rname)
+
+    #algo4
+    db, ref, message = clean.algo4(db,ref)
+    report_a_log(message, rname)
+
+    #algo5
+    db, ref, message = clean.algo5(db,ref)
+    report_a_log(message, rname)
+
+    #algo6
+    db, ref, message = clean.algo6(db,ref)
+    report_a_log(message, rname)
+
+    #algo7
+    db, ref, message = clean.algo7(db,ref)
+    report_a_log(message, rname)
+
+    #algo8
+    db, ref, message = clean.algo8(db,ref)
+    report_a_log(message, rname)
+
+    #algo9
+    db, ref, message = clean.algo9(db,ref)
+    report_a_log(message, rname)
+
+    #algo10
+    db, ref, message = clean.algo10(db,ref)
+    report_a_log(message, rname)
+
+    #algo11
+    db, ref, message = clean.algo11(db,ref)
+    report_a_log(message, rname)
+
+    #algo12
+    db, ref, message = clean.algo12(db,ref)
+    report_a_log(message, rname)
+
+    #algo13
+    db, ref, message = clean.algo13(db,ref)
+    report_a_log(message, rname)
+
+    #algo14
+    db, ref, message = clean.algo14(db,ref)
+    report_a_log(message, rname)
+
+    #algo15
+    db, ref, message = clean.algo15(db,ref)
+    report_a_log(message, rname)
+
+    #algo16
+    db, ref, message = clean.algo16(db,ref)
+    report_a_log(message, rname)
+
+    #algo17
+    db, ref, message = clean.algo17(db,ref)
+    report_a_log(message, rname)
+
+    #algo18
+    db, ref, message = clean.algo18(db,ref)
+    report_a_log(message, rname)
+
+    #algo19
+    db, ref, message = clean.algo19(db,ref)
+    report_a_log(message, rname)
 
 
     #dummy empty log to send to finalize logging
@@ -66,7 +183,7 @@ def clean_file(wb, path):
 
     #upload with name of file at end
     #we need to upload the new version!!!!!!!!
-    #client.put_file(DB_PATH + '/edited/' + path.rsplit('/', 1)[1], pull_file(path))
+    send_wb(DB_PATH + '/edited/' + path.rsplit('/', 1)[1], wb)
     print 'uploaded! ' + path
 
 report_recvd = False
@@ -128,18 +245,24 @@ def colvals_notincol(sheet_val,col_val,sheet_ref,col_ref):
     #create an array from sheet_ref with values to be searched (as opposed to nested loops)
     #iter_rows syntax: sheet.iter_rows('A1:A2')
     for row in sheet_ref.iter_rows(col_ref + "2:" + 
-        find_last_value(sheet_ref, 'A', 'c')):
+        find_last_value(sheet_ref, col_ref, 'c')):
 
-        for cell in row:
-            to_search.append(str(cell.value))
+        for cell in row:               
+                try:
+                    to_search.append(str(cell.value.encode('utf8')))
+                except:
+                    to_search.append(str(cell.value))
 
     #now search through vals and see if they're present
     for row in sheet_val.iter_rows(col_val + "2:" + 
-        find_last_value(sheet_val, 'A', 'c')):
+        find_last_value(sheet_val, col_val, 'c')):
 
         for cell in row:
-            if cell.value not in to_search:
-                not_in.append(str(cell.value))
+            if str(cell.value) not in to_search:
+                try:
+                    not_in.append(str(cell.value.encode('utf8')))
+                except:
+                    not_in.append(str(cell.value))
 
     return not_in
              
@@ -158,13 +281,13 @@ def find_last_value(sheet, start_location, r_or_c):
     else:
         raise Exception("r_or_c must be r or c!")
     
-    #look for a cell without value, and if we find a blank, traverse 10 more
+    #look for a cell without value, and if we find a blank, traverse 100 more
     #to make sure there's no blanks
     blank_count = 0
     found = False
     cur_cell = sheet[start_location+'1']
     while not found:
-        cur_cell = cur_cell.offset(row = row_it, column= col_it)
+        cur_cell = cur_cell.offset(row = row_it, column = col_it)
 
         if not cur_cell.value:
             if blank_count == 0:
@@ -172,7 +295,7 @@ def find_last_value(sheet, start_location, r_or_c):
                 last_found = cur_cell.offset(row = -row_it, column= -col_it).coordinate
                 blank_count+=1
 
-            elif blank_count == 10:
+            elif blank_count == 100:
                 found = True
             else:
                 blank_count+=1

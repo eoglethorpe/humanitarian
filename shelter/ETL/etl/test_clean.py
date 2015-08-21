@@ -9,13 +9,7 @@ train = sample_wb.get_sheet_by_name('Training')
 ref = sample_wb.get_sheet_by_name('Reference')
 
 class TestClean(unittest.TestCase):
-
-    def test_algo1(self):
-        self.assertEqual(clean.algo1(dist, ref), 'The following agencies are not in the reference:\nMedair-MissionEastHH')
-
-    def test_algo2(self):
-        self.assertEqual(clean.algo2(dist, ref), 'The following rows were marked as internal:\n3')
-
+    print ''
 
 if __name__ == '__main__':
-    unittest.main()
+    print clean.algo19(dist, ref)
