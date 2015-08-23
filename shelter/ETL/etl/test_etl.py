@@ -1,6 +1,8 @@
 import unittest
 import etl
 from openpyxl import load_workbook
+from openpyxl import Workbook
+
 import os 
 
 
@@ -44,6 +46,36 @@ class TestEtl(unittest.TestCase):
         etl.report_a_log('', 'text')
 
         assert os.path.exists('/Users/ewanog/code/nepal-earthquake/shelter/etl/etl/logs/cleaned_log.txt')
+
+    def test_consolidate(self):
+        #create historical db
+        db = Workbook().active
+        db.append(('val', 'key'))
+        db.append(('dupval1', 'dupkey1'))
+        db.append(('row2val', 'key1'))
+        db.append(('row3val', 'key2'))
+        db.append(('dupval2', 'dupkey2'))
+
+        #create two sheets to add
+        ws1 = Workbook().active
+        ws1.append(('val', 'key'))
+        ws1.append(('dupval1', 'dupkey1'))
+        ws1.append(('notdupedws1', 'notdupedvalws1'))
+        
+        ws2 = Workbook().active
+        ws2.append(('val', 'key'))
+        ws2.append(('dupval2', 'dupkey2'))
+        ws2.append(('notdupedws2', 'notdupedvalws2'))
+
+        cons = etl.consolidate(db, (ws1, ws2), 'B')
+        cons_sheet = cons.get_sheet_by_name('Consolidated')
+        self.assertEqual(set(etl.get_values(cons_sheet.columns[1])), 
+            (set(['key','key1','key2','dupkey1','notdupedvalws1','dupkey2','notdupedvalws2'])))
+
+    def test_get_values(self):
+        db = Workbook().active
+        db.append(('val', 'key'))
+        self.assertEqual(etl.get_values(db.rows[0]),['val','key'])
 
 
 if __name__ == '__main__':

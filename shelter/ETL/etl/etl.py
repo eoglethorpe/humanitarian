@@ -6,6 +6,8 @@
 ##test individual cleaning
 ##mvoe current logs to an 'old' file 
 ##put in run params: test, exclude, folder location?
+##change to pull down all WSs at same time as opposed to iterating  
+
 
 import dropbox
 import clean
@@ -13,8 +15,10 @@ import os
 import cStringIO
 import re
 from openpyxl import load_workbook
+from openpyxl.cell import column_index_from_string
+from openpyxl import Workbook
 import openpyxl.writer.excel as wrtex
-
+import time
 
 #dropbox setup
 db_key = os.environ['db_key']
@@ -61,6 +65,9 @@ def iterate_reports():
 
 #    file_list = [DB_PATH+"/Welthungerhilfe.xlsx/"]
 
+    action = 'consolidate'
+    wbs = []
+
     for f in file_list:
         #pull down workbook from specified directory
         print "pulling! " + f
@@ -68,15 +75,69 @@ def iterate_reports():
 
         #check to see if properly formatted
         if wb_format(wb_current):
-            #clean the workboook
-            print "cleaning " + f
-            clean_file(wb_current, f)
+            if action == 'consolidate':
+                print 'appended ' + f
+                wbs.append(wb_current)
+
+            else:
+                #clean the workboook
+                print "cleaning " + f
+                clean_file(wb_current, f)
 
         else:
             #put in malformatted folder
             print 'malformatted ' + f
             path = DB_PATH + '/old_format_or_incorrect/' + f.rsplit('/', 1)[1]
             #send_wb(path, wb_current)
+
+    print 'consolidating...'
+    consolidate(get_baseline(), wbs)
+
+def get_baseline():
+    pull_wb("baseline")
+
+def consolidate(baseline, wbs, key_col,):
+    """consolidate baseline data and worksheets into one sheet 
+        and remove duplicates"""
+
+    cons_wb = Workbook()
+    cons = cons_wb.active
+    cons.title = 'Consolidated'
+    cons.append(get_values(baseline.rows[0]))
+    
+    #read in baseline db and new WSs into dictionaries
+    base_dict = {}
+    wbs_dict = {}
+    key_loc = column_index_from_string(key_col)-1
+
+    for r in baseline.rows[1:]:
+        base_dict[str(r[key_loc].value)] = get_values(r)
+
+    for wb in wbs:
+        for r in wb.rows[1:]:
+            wbs_dict[str(r[key_loc].value)] = get_values(r)
+
+    #go through baseline and remove dups
+    for k in base_dict.keys():
+        if k in wbs_dict.keys():
+            base_dict.pop(k)
+
+    #now, add baseline and then wbs to cons
+    for v in base_dict.values():
+        cons.append(v)
+
+    for v in wbs_dict.values():
+        cons.append(v)
+    
+    return cons_wb
+
+def get_values(r):
+    """returns values of a row or a column"""
+    ret = []
+    for v in r:
+        ret.append(str(v.value))
+
+    return ret
 
 def send_wb(path, wb):
     print 'sending! ' + path
@@ -221,7 +282,8 @@ def report_a_log(log_value, path):
         current_path = path
         
         #write out
-        with open('/Users/ewanog/code/nepal-earthquake/shelter/etl/etl/logs/cleaned_log.txt', 'w') as f:
+        with open('/Users/ewanog/code/nepal-earthquake/shelter/etl/etl/logs/cleaned_log'+
+            time.strftime("%m-%d-%y_%H:%M_%S") +'.txt', 'w') as f:
             for log in current_log:
                 f.write(str(log)+'\n')
         f.close()
