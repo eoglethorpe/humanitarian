@@ -50,27 +50,43 @@ class TestEtl(unittest.TestCase):
     def test_consolidate(self):
         #create historical db
         db = Workbook().active
-        db.append(('val', 'key'))
-        db.append(('dupval1', 'dupkey1'))
-        db.append(('row2val', 'key1'))
-        db.append(('row3val', 'key2'))
-        db.append(('dupval2', 'dupkey2'))
+        db.append(("Implementing agency", "Local partner agency" , "District", 
+            "VDC / Municipalities", "Municipal Ward", "Action type", 
+            "Action description", "\'# Items / \'# Man-hours / NPR",
+            "Total Number Households"))
+        db.append(('val', 'key', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
+        db.append(('dup1', 'dupkey1', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
+        db.append(('row2val', 'key1', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
+        db.append(('row3val', 'key2', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
+        db.append(('dup2', 'dupkey2', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
 
         #create two sheets to add
         ws1 = Workbook().active
-        ws1.append(('val', 'key'))
-        ws1.append(('dupval1', 'dupkey1'))
-        ws1.append(('notdupedws1', 'notdupedvalws1'))
+        ws1.append(("Implementing agency", "Local partner agency" , "District", 
+            "VDC / Municipalities", "Municipal Ward", "Action type", 
+            "Action description", "\'# Items / \'# Man-hours / NPR",
+            "Total Number Households"))
+        ws1.append(('val', 'key', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
+        ws1.append(('dup1', 'dupkey1', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
+        ws1.append(('notdupedws1', 'notdupedvalws1', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
         
         ws2 = Workbook().active
-        ws2.append(('val', 'key'))
-        ws2.append(('dupval2', 'dupkey2'))
-        ws2.append(('notdupedws2', 'notdupedvalws2'))
+        ws2.append(("Implementing agency", "Local partner agency" , "District", 
+            "VDC / Municipalities", "Municipal Ward", "Action type", 
+            "Action description", "\'# Items / \'# Man-hours / NPR",
+            "Total Number Households"))
+        ws2.append(('val', 'key', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
+        ws2.append(('dup2', 'dupkey2', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
+        ws2.append(('notdupedws2', 'notdupedvalws2', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
 
-        cons = etl.consolidate(db, (ws1, ws2), 'B')
+        cons = etl.consolidate(db, (ws1, ws2), 'J')
         cons_sheet = cons.get_sheet_by_name('Consolidated')
-        self.assertEqual(set(etl.get_values(cons_sheet.columns[1])), 
-            (set(['key','key1','key2','dupkey1','notdupedvalws1','dupkey2','notdupedvalws2'])))
+
+        self.assertEqual(set(etl.get_values(cons_sheet.columns[9])), 
+            (set(['None', 'valkeyNoneNoneNoneNoneNoneNoneNone','row2valkey1NoneNoneNoneNoneNoneNoneNone',
+                'row3valkey2NoneNoneNoneNoneNoneNoneNone','dup1dupkey1NoneNoneNoneNoneNoneNoneNone',
+                'notdupedws1notdupedvalws1NoneNoneNoneNoneNoneNoneNone','dup2dupkey2NoneNoneNoneNoneNoneNoneNone',
+                'notdupedws2notdupedvalws2NoneNoneNoneNoneNoneNoneNone'])))
 
     def test_get_values(self):
         db = Workbook().active

@@ -34,27 +34,14 @@ def iterate_reports():
 
     meta = client.metadata(DB_PATH, list=True)
     file_list = [str(f['path']) for f in meta['contents'] if re.search('xls|xlsx$',str(f))]
-    exclude = [
-    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/3w-Habitat for Humanity - 8-14-2015 dwld.xlsx',
-    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/2015 08 20_ CARE_Shelter 4Ws_final.xlsx',
-    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/ADRA - 20082015.xlsx',
-    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/Caritas Switzerland - 17082015.xlsx',
-    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/CDRA Nepal.xlsx',
-    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/Child Space 19 August 2015.xlsx',
-    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/Copy of Cesvi 18082015_sheltercluster.xlsx',
-    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/Copy of reportingtemplate_sheltercluster_v4.0_5.xlsx',
-    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/CRS-Caritas - 20082015.xlsx',
-    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/Germany-GIZ.xlsx',
-    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/IOM 18 August 2015.xlsx',
-    '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/ISR-NEPAL 4W Templete.xlsx'
-    ]
     
     k = []
     for v in file_list:
         if 'C-' in v or 'C -' in v:
-            k.append(v)
+            k.append([v])
+            print 'pulled: ' + v
 
-    file_list = k
+    file_list = k[0]
 
     print 'list is!: ' 
     for v in file_list:
@@ -91,45 +78,85 @@ def iterate_reports():
             #send_wb(path, wb_current)
 
     print 'consolidating...'
-    consolidate(get_baseline(), wbs)
+    to_send = consolidate(get_baseline(), wbs)
+    send_wb('/2015 nepal eq/04 im/reporting/Database_&_Template/EO_testing' +
+        'merged.xlsx', to_send)
+
+
 
 def get_baseline():
-    pull_wb("baseline")
+    pull_wb('/2015 nepal eq/04 im/reporting/Database_&'
+        +'_Template/EO_testing/baseline_trim.xlsx').get_sheet_by_name('Distributions')
 
-def consolidate(baseline, wbs, key_col,):
+def consolidate(baseline, wbs, key_col):
     """consolidate baseline data and worksheets into one sheet 
         and remove duplicates"""
+
+    print 'in consolidate'
 
     cons_wb = Workbook()
     cons = cons_wb.active
     cons.title = 'Consolidated'
-    cons.append(get_values(baseline.rows[0]))
+    cons.append(get_values(baseline.rows[0]) + ['UID'])
     
     #read in baseline db and new WSs into dictionaries
     base_dict = {}
     wbs_dict = {}
     key_loc = column_index_from_string(key_col)-1
 
+    #add in UID value for sheets
+    for wb in wbs:
+        for i in range(2,wb.get_highest_row()+1):
+            wb[key_col + str(i)] = get_uid(wb.rows[i-1], wb)
+    print 'in 1'
+
+    #add UID for baseline
+    for i in range(2,baseline.get_highest_row()+1):
+        baseline[key_col + str(i)] = get_uid(baseline.rows[i-1], baseline)
+    print 'in 2'
+
+    #add baseline to dict
     for r in baseline.rows[1:]:
         base_dict[str(r[key_loc].value)] = get_values(r)
+    print 'in 3'
 
+    #merge sheets into a dict
     for wb in wbs:
         for r in wb.rows[1:]:
             wbs_dict[str(r[key_loc].value)] = get_values(r)
+    print 'in 4'
 
+    dup_count = 0
     #go through baseline and remove dups
     for k in base_dict.keys():
         if k in wbs_dict.keys():
             base_dict.pop(k)
+            dup_count+=1
+
+    print 'in 5'
+    print 'dupcount: ' + str(dup_count)
 
     #now, add baseline and then wbs to cons
     for v in base_dict.values():
         cons.append(v)
+    print 'in 6'
 
     for v in wbs_dict.values():
         cons.append(v)
     
     return cons_wb
+
+def get_uid(row, sheet):
+    vals = ["Implementing agency", "Local partner agency" , "District", 
+            "VDC / Municipalities", "Municipal Ward", "Action type", 
+            "Action description", "\'# Items / \'# Man-hours / NPR",
+            "Total Number Households"]
+    key = ""
+
+    for v in vals:
+        key += str(row[column_index_from_string(find_in_header(sheet, v))-1].value)
+
+    return key
 
 def get_values(r):
     """returns values of a row or a column"""
@@ -305,6 +332,7 @@ def find_in_header(sheet, find_val):
                 return cell.column
 
     #if we haven't returned anything yet
+    print 'we return nothing!!!! for: ' + find_val
     return None
 
 def colvals_notincol(sheet_val,col_val,sheet_ref,col_ref):
