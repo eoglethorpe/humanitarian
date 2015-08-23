@@ -4,7 +4,7 @@ from openpyxl import load_workbook
 import os 
 
 
-sample_wb_new_format = load_workbook('/Users/ewanog/code/nepal-earthquake/shelter/etl/clean_test.xlsx')
+sample_wb_new_format = load_workbook('/Users/ewanog/code/nepal-earthquake/shelter/etl/clean_test.xlsx', data_only = True)
 sample_wb = load_workbook('/Users/ewanog/code/nepal-earthquake/shelter/etl/etl_test.xlsx')
 db = sample_wb.get_sheet_by_name('Database')
 ref = sample_wb.get_sheet_by_name('Reference')
@@ -31,14 +31,19 @@ class TestEtl(unittest.TestCase):
             tuple(['notincluded1','notincluded2','notincluded3']))
 
     def test_report_a_log(self):
-        etl.report_a_log('ent1', 'file1')
+        etl.report_a_log('**FILE 1**', 'file1')
         etl.report_a_log('ent2', 'file1')
-        etl.report_a_log('ent4', 'file2')
+        etl.report_a_log('ent2', 'file1')
+        etl.report_a_log('**FILE 2**', 'file2')
         etl.report_a_log('ent5', 'file2')
+        etl.report_a_log('ent5', 'file2')
+        etl.report_a_log('**FILE 3**', 'file3')
+        etl.report_a_log('ent5', 'file3')
+        etl.report_a_log('ent5', 'file3')
+
         etl.report_a_log('', 'text')
 
-        assert os.path.exists('/Users/ewanog/code/nepal-earthquake/shelter/etl/etl/logs/file1.txt')
-        assert os.path.exists('/Users/ewanog/code/nepal-earthquake/shelter/etl/etl/logs/file2.txt')
+        assert os.path.exists('/Users/ewanog/code/nepal-earthquake/shelter/etl/etl/logs/cleaned_log.txt')
 
 
 if __name__ == '__main__':

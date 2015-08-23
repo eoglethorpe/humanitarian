@@ -1,5 +1,7 @@
 #notes: two admin1_dist, using 'E'
 #TODO: create a versatile stystem of creating filters that automitaiclly creates tests
+#Nones?
+#return col and cols methods
 
 import etl
 import string
@@ -119,17 +121,18 @@ def algo8(db,ref):
     ref_col_loc = etl.find_in_header(ref,'Wards')
     missing_names = etl.colvals_notincol(db, db_col_loc, ref, ref_col_loc)
 
-    #trim missing_names
-    for val in missing_names:
-        ex = False
-        for l in val:
-            if str(l) not in set(string.digits + ',' + ' '):
-                ex = True
+    #trim missing_names to see if they contain any forbidden chars
+    invalid = []
 
-        if not ex:
-            missing_names.remove(val)
+    for v in missing_names:
+        for letter in v:
+            #if we've found an illegal letter
+            if letter not in set(string.digits + ' ' + ','):
+                invalid.append('(' + v + ')')
+                break
 
-    return db, ref, 'Malformed wards: \n' + ','.join(missing_names)
+
+    return db, ref, 'Malformed wards: \n' + ','.join(invalid)
 
 def algo9(db,ref):
     #column J: must be in reference>Type of Activity
@@ -248,9 +251,8 @@ def algo15(db,ref):
     #zip and check values
     for vals in zip(cnt_vals, fem_vals):
         if not (vals[0].isdigit() and vals[1].isdigit()):
-            if vals[1] != 'None':
-                malformatted.append(str(vals))
-        elif vals[1] > vals[0]:
+            malformatted.append(str(vals))
+        elif int(vals[1]) > int(vals[0]):
             malformatted.append(str(vals))
 
     return db, ref, 'Total #HH and Female #HH conflict or issue \n' + ','.join(malformatted)
@@ -277,13 +279,11 @@ def algo16(db,ref):
     #zip and check values
     for vals in zip(cnt_vals, vul_vals):
         if not (vals[0].isdigit() and vals[1].isdigit()):
-            if vals[1] != 'None':
-                malformatted.append(str(vals))
-        elif vals[1] > vals[0]:
+            malformatted.append(str(vals))
+        elif int(vals[1]) > int(vals[0]):
             malformatted.append(str(vals))
 
     return db, ref, 'Total #HH and Vulnerable #HH conflict or issue \n' + ','.join(malformatted)
-    return db, ref, '\n' + ','.join()
 
 def algo17(db,ref):
     #column R: must be in reference>Status

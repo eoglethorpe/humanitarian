@@ -1,11 +1,11 @@
 """Module for extracting data from dropbox and aggregating"""
 #TODO: better way for specifyign which folder to pull from (latest?)
 ##how to handle names?
-##qualify sheets as being valid before cycling or skip invalid ones?
 ##pull from rules based text file
 ##log put on dbox, make better
 ##test individual cleaning
-##upload new version
+##mvoe current logs to an 'old' file 
+##put in run params: test, exclude, folder location?
 
 import dropbox
 import clean
@@ -22,7 +22,7 @@ db_secret = os.environ['db_secret']
 db_access = os.environ['db_access']
 client = dropbox.client.DropboxClient(db_access)
 
-DB_PATH = '/2015 Nepal EQ/04 IM/Reporting/Incoming_submissions_Z/'
+DB_PATH = '/2015 Nepal EQ/04 IM/Reporting/Database_&_Template/Data_Cleaning_and_Validation/'
 TEST_FILE = '/test_sheet.xlsx'
 
 def iterate_reports():
@@ -44,11 +44,23 @@ def iterate_reports():
     '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/IOM 18 August 2015.xlsx',
     '/2015 Nepal EQ/04 IM/reporting/Incoming_submissions_Z/ISR-NEPAL 4W Templete.xlsx'
     ]
+    
+    k = []
+    for v in file_list:
+        if 'C-' in v or 'C -' in v:
+            k.append(v)
 
-    for v in exclude:
-        file_list.remove(v)
+    file_list = k
 
-    #file_list = [DB_PATH+"/Batas Foundation.xlsx/"]
+    print 'list is!: ' 
+    for v in file_list:
+        print v
+
+#    for v in exclude:
+#        file_list.remove(v)
+
+#    file_list = [DB_PATH+"/Welthungerhilfe.xlsx/"]
+
     for f in file_list:
         #pull down workbook from specified directory
         print "pulling! " + f
@@ -73,14 +85,14 @@ def send_wb(path, wb):
 
 def wb_format(wb):
     """check to see if a report is correct and in the new report format"""
-    must_contain = ['Guidance Note', 'Distributions', 'Training', 'Reference']
+    must_contain = ['Distributions', 'Training', 'Reference']
 
     match_count = 0
     for s in wb.worksheets:
         if s.title in must_contain:
             match_count+=1
 
-    if match_count < 4:
+    if match_count < 3:
         return False
     else:
         return True
@@ -94,7 +106,7 @@ def clean_file(wb, path):
 
     #setup log
     rname =  path.rsplit('/', 1)[1]
-    report_line = '***Report for ' + rname
+    report_line = '******Report for ' + rname + ' ******'
     report_a_log(report_line, rname)
 
 
@@ -189,43 +201,39 @@ def clean_file(wb, path):
 report_recvd = False
 current_path = ''
 current_log = []
-old_path = ""
 
 def report_a_log(log_value, path):
-    """write out contents for a given log - ends if a new path is given"""
+    """write out contents for a given log - creates new entry if a new path is given"""
     #todo: this is gross
     global report_recvd
     global current_path
     global current_log
-    global old_path
+
 
     #if module is starting and we haven't logged anything
     if not report_recvd:
         current_path = path
         report_recvd = True
-        current_log.append(log_value)
-        current_log.append('')
-        old_path = path
     
+
     #if we are recieving a new path
     elif current_path != path:
         current_path = path
         
         #write out
-        with open('/Users/ewanog/code/nepal-earthquake/shelter/etl/etl/logs/' 
-            + old_path + '.txt', 'w') as f:
+        with open('/Users/ewanog/code/nepal-earthquake/shelter/etl/etl/logs/cleaned_log.txt', 'w') as f:
             for log in current_log:
                 f.write(str(log)+'\n')
         f.close()
 
-        #create new current_log
-        current_log = [log_value]
+        #move on to next log
         current_log.append('')
-        old_path = path
+        current_log.append('')
 
-    else:
-        current_log.append(log_value)
-        current_log.append('')
+    current_log.append(log_value)
+    current_log.append('')
+
+
 
 def find_in_header(sheet, find_val):
     """find the coordinate of a value in header (assumes header is in row 1)"""
@@ -310,7 +318,7 @@ def pull_wb(location):
 
     in_mem_file = pull_file(location)
 
-    wb = load_workbook(in_mem_file)
+    wb = load_workbook(in_mem_file, data_only = True)
     print "pulled! " + str(wb.get_sheet_names())  
     in_mem_file.close()
 
