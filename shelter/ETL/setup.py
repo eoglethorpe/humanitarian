@@ -6,4 +6,5 @@ setup(name='etl',
       author='Ewan Oglethorpe',
       author_email='ewanogle@gmail.com',
       packages = ['etl'], 
+      install_requires = ['dropbox, openpyxl']
 )
