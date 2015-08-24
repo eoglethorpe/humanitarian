@@ -21,8 +21,6 @@ import openpyxl.writer.excel as wrtex
 import time
 
 #dropbox setup
-db_key = os.environ['db_key']
-db_secret = os.environ['db_secret']
 db_access = os.environ['db_access']
 client = dropbox.client.DropboxClient(db_access)
 
@@ -81,7 +79,6 @@ def iterate_reports():
     to_send = consolidate(get_baseline(), wbs)
     send_wb('/2015 nepal eq/04 im/reporting/Database_&_Template/EO_testing' +
         'merged.xlsx', to_send)
-
 
 
 def get_baseline():
