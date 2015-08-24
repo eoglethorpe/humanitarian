@@ -76,14 +76,14 @@ def iterate_reports():
             #send_wb(path, wb_current)
 
     print 'consolidating...'
-    to_send = consolidate(get_baseline(), wbs)
+    to_send = consolidate(pull_wb('/2015 nepal eq/04 im/reporting/Database_&'
+        +'_Template/EO_testing/baseline_trim.xlsx').get_sheet_by_name('Distributions'), wbs)
     send_wb('/2015 nepal eq/04 im/reporting/Database_&_Template/EO_testing' +
         'merged.xlsx', to_send)
 
 
 def get_baseline():
-    pull_wb('/2015 nepal eq/04 im/reporting/Database_&'
-        +'_Template/EO_testing/baseline_trim.xlsx').get_sheet_by_name('Distributions')
+
 
 def consolidate(baseline, wbs, key_col):
     """consolidate baseline data and worksheets into one sheet 
