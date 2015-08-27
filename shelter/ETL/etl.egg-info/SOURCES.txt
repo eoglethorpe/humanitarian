@@ -1,7 +1,12 @@
 setup.py
 etl/__init__.py
+etl/clean.py
+etl/consolidate.py
 etl/etl.py
+etl/test_clean.py
+etl/test_etl.py
 etl.egg-info/PKG-INFO
 etl.egg-info/SOURCES.txt
 etl.egg-info/dependency_links.txt
+etl.egg-info/requires.txt
 etl.egg-info/top_level.txt

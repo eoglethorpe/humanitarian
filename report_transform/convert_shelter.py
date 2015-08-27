@@ -44,14 +44,17 @@ def read_csv():
 		if row['District']=='Kavrepalanchok':
 			row['District']='Kabhrepalanchok'
 		if row['District']=='sindhuli':
-			row['District']='Sindhuli'
+			row['District']='Sind
+			huli'
 	
 		#skip TBD districts
 		if row['District']!='TBD':
 			rows+=[[row[val] for val in add]]
 	
 	#sort rows
-	rows = sorted(rows, key=lambda k: k[:4])
+	rows = vatypes = [v[0] for v in vals]
+
+ed(rows, key=lambda k: k[:4])
 
 def agg():
 	global aggd

@@ -77,12 +77,9 @@ def iterate_reports():
 
     print 'consolidating...'
     to_send = consolidate(pull_wb('/2015 nepal eq/04 im/reporting/Database_&'
-        +'_Template/EO_testing/baseline_trim.xlsx').get_sheet_by_name('Distributions'), wbs)
-    send_wb('/2015 nepal eq/04 im/reporting/Database_&_Template/EO_testing' +
+        +'_Template/EO_testing/baseline_trim.xlsx').get_sheet_by_name('Database'), wbs, 'V')
+    send_wb('/2015 nepal eq/04 im/reporting/Database_&_Template/EO_testing/' +
         'merged.xlsx', to_send)
-
-
-def get_baseline():
 
 
 def consolidate(baseline, wbs, key_col):
@@ -95,38 +92,62 @@ def consolidate(baseline, wbs, key_col):
     cons = cons_wb.active
     cons.title = 'Consolidated'
     cons.append(get_values(baseline.rows[0]) + ['UID'])
-    
+
+    print 'step1'
+
+    merge_sheets = []
+    #pull out desired worksheet
+    for wb in wbs:
+        print 'step2'
+        merge_sheets.append(wb.get_sheet_by_name('Distributions'))
+
+    print 'step3'
+
     #read in baseline db and new WSs into dictionaries
     base_dict = {}
-    wbs_dict = {}
+    merge_sheets_dict = {}
     key_loc = column_index_from_string(key_col)-1
 
+    print 'step4'
+
+
     #add in UID value for sheets
-    for wb in wbs:
-        for i in range(2,wb.get_highest_row()+1):
-            wb[key_col + str(i)] = get_uid(wb.rows[i-1], wb)
+    #there is a problem where imaginary columns are being retruned by .rows, so we find the
+    #max value of the header and only look for values of that row that extend out to that column
+    for wb in merge_sheets:
+        test_c = 0
+        print 'step5'
+        max_val = len(wb.rows[0])
+        for r in wb.rows[1:]:
+            test_c+=1
+            if test_c % 100 == 0:
+                print test_c
+            wb[key_col + xstr(r[0].row)] = get_uid(r[0:max_val], wb)
+
+
     print 'in 1'
 
     #add UID for baseline
-    for i in range(2,baseline.get_highest_row()+1):
-        baseline[key_col + str(i)] = get_uid(baseline.rows[i-1], baseline)
+    max_val = len(baseline.rows[0])
+    for r in baseline.rows[1:]:
+        baseline[key_col + xstr(r[0].row)] = get_uid(r[0:max_val], baseline)
     print 'in 2'
 
     #add baseline to dict
     for r in baseline.rows[1:]:
-        base_dict[str(r[key_loc].value)] = get_values(r)
+        base_dict[xstr(r[key_loc].value)] = get_values(r)
     print 'in 3'
 
     #merge sheets into a dict
-    for wb in wbs:
+    for wb in merge_sheets:
         for r in wb.rows[1:]:
-            wbs_dict[str(r[key_loc].value)] = get_values(r)
+            merge_sheets_dict[xstr(r[key_loc].value)] = get_values(r)
     print 'in 4'
 
     dup_count = 0
     #go through baseline and remove dups
     for k in base_dict.keys():
-        if k in wbs_dict.keys():
+        if k in merge_sheets_dict.keys():
             base_dict.pop(k)
             dup_count+=1
 
@@ -138,7 +159,7 @@ def consolidate(baseline, wbs, key_col):
         cons.append(v)
     print 'in 6'
 
-    for v in wbs_dict.values():
+    for v in merge_sheets_dict.values():
         cons.append(v)
     
     return cons_wb
@@ -146,12 +167,12 @@ def consolidate(baseline, wbs, key_col):
 def get_uid(row, sheet):
     vals = ["Implementing agency", "Local partner agency" , "District", 
             "VDC / Municipalities", "Municipal Ward", "Action type", 
-            "Action description", "\'# Items / \'# Man-hours / NPR",
+            "Action description", "# Items / # Man-hours / NPR",
             "Total Number Households"]
     key = ""
 
     for v in vals:
-        key += str(row[column_index_from_string(find_in_header(sheet, v))-1].value)
+        key += xstr(row[column_index_from_string(find_in_header(sheet, v))-1].value)
 
     return key
 
@@ -159,7 +180,7 @@ def get_values(r):
     """returns values of a row or a column"""
     ret = []
     for v in r:
-        ret.append(str(v.value))
+        ret.append(xstr(v.value))
 
     return ret
 
@@ -329,7 +350,7 @@ def find_in_header(sheet, find_val):
                 return cell.column
 
     #if we haven't returned anything yet
-    print 'we return nothing!!!! for: ' + find_val
+    print 'No header found for: ' + find_val
     return None
 
 def colvals_notincol(sheet_val,col_val,sheet_ref,col_ref):
@@ -344,7 +365,7 @@ def colvals_notincol(sheet_val,col_val,sheet_ref,col_ref):
 
         for cell in row:               
                 try:
-                    to_search.append(str(cell.value.encode('utf8')))
+                    to_search.append(xstr(cell.value))
                 except:
                     to_search.append(str(cell.value))
 
@@ -355,7 +376,7 @@ def colvals_notincol(sheet_val,col_val,sheet_ref,col_ref):
         for cell in row:
             if str(cell.value) not in to_search:
                 try:
-                    not_in.append(str(cell.value.encode('utf8')))
+                    not_in.append(xstr(cell.value))
                 except:
                     not_in.append(str(cell.value))
 
@@ -421,8 +442,16 @@ def pull_file(location):
 
     return to_ret
 
+def xstr(conv):
+    """return a properly encoded string"""
+    try:
+        return conv.encode('utf8')
+    except:
+        return str(conv)
+
 def test():
     return load_workbook('/Users/ewanog/code/nepal-earthquake/shelter/etl/clean_test.xlsx', data_only=True)
 
 if __name__ == '__main__':
     iterate_reports()
+

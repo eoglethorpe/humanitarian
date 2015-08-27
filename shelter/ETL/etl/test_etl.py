@@ -52,7 +52,7 @@ class TestEtl(unittest.TestCase):
         db = Workbook().active
         db.append(("Implementing agency", "Local partner agency" , "District", 
             "VDC / Municipalities", "Municipal Ward", "Action type", 
-            "Action description", "\'# Items / \'# Man-hours / NPR",
+            "Action description", "# Items / # Man-hours / NPR",
             "Total Number Households"))
         db.append(('val', 'key', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
         db.append(('dup1', 'dupkey1', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
@@ -61,25 +61,35 @@ class TestEtl(unittest.TestCase):
         db.append(('dup2', 'dupkey2', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
 
         #create two sheets to add
-        ws1 = Workbook().active
-        ws1.append(("Implementing agency", "Local partner agency" , "District", 
+        wb1 = Workbook()
+        wb1.create_sheet(2, 'Distributions')
+        ws1 = wb1.get_sheet_by_name('Distributions')
+        ws1.append(("Implementing agency", "Local partner agency" , "District",
             "VDC / Municipalities", "Municipal Ward", "Action type", 
-            "Action description", "\'# Items / \'# Man-hours / NPR",
+            "Action description", "# Items / # Man-hours / NPR",
             "Total Number Households"))
         ws1.append(('val', 'key', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
         ws1.append(('dup1', 'dupkey1', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
         ws1.append(('notdupedws1', 'notdupedvalws1', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
-        
-        ws2 = Workbook().active
+
+        wb2 = Workbook()
+        wb2.create_sheet(1, 'Distributions')
+        ws2 = wb2.get_sheet_by_name('Distributions')
+        ws2.title = 'Distributions'
         ws2.append(("Implementing agency", "Local partner agency" , "District", 
             "VDC / Municipalities", "Municipal Ward", "Action type", 
-            "Action description", "\'# Items / \'# Man-hours / NPR",
+            "Action description", "# Items / # Man-hours / NPR",
             "Total Number Households"))
         ws2.append(('val', 'key', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
         ws2.append(('dup2', 'dupkey2', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
         ws2.append(('notdupedws2', 'notdupedvalws2', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'Last'))
 
-        cons = etl.consolidate(db, (ws1, ws2), 'J')
+        #weird bug
+        wb2.get_sheet_by_name('Distributions1').title = 'Distributions'
+        print 'in test: ' + str(wb1.get_sheet_names())
+        print 'in test2: ' + str(wb2.get_sheet_names())
+
+        cons = etl.consolidate(db, (wb1, wb2), 'J')
         cons_sheet = cons.get_sheet_by_name('Consolidated')
 
         self.assertEqual(set(etl.get_values(cons_sheet.columns[9])), 
