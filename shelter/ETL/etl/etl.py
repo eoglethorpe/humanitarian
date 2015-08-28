@@ -161,8 +161,9 @@ def consolidate(baseline, wbs, key_col):
         for r in wb.rows[1:]:
             uid = get_uid(r[0:max_val], wb)
             if merge_sheets_dict.has_key(uid):
-		dup_count+=1
-		print uid
+                if not none_row('None'):
+                    dup_count+=1
+                    print uid
                 if not keep_dict(r, merge_sheets_dict[uid], wb):
                     merge_sheets_dict[xstr(r[key_loc].value)] = get_values(r)
             else:
@@ -197,6 +198,10 @@ def consolidate(baseline, wbs, key_col):
         cons.append(v)
     
     return cons_wb
+
+def none_row(val):
+    i = (val+val).find(val, 1, -1)
+    return None if i == -1 else val[:i]
 
 def keep_dict(row, existing, ws):
     """given conflicting dict entries, return True if current val we should keep
