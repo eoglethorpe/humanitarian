@@ -161,7 +161,9 @@ def consolidate(baseline, wbs, key_col):
         for r in wb.rows[1:]:
             uid = get_uid(r[0:max_val], wb)
             if merge_sheets_dict.has_key(uid):
-                if not keep_dict(r, merge_sheets_dict[uid], merge_sheets):
+		dup_count+=1
+		print uid
+                if not keep_dict(r, merge_sheets_dict[uid], wb):
                     merge_sheets_dict[xstr(r[key_loc].value)] = get_values(r)
             else:
                 merge_sheets_dict[xstr(r[key_loc].value)] = get_values(r)
@@ -211,7 +213,13 @@ def keep_dict(row, existing, ws):
 
     c=0
     for v in status:
-        if v in row[status_loc].value:
+	if row[status_loc].value is None:
+	    row[status_loc].value = 'Planned'
+	if existing[status_loc] == 'None':
+	    existing[status_loc] = 'Planned'
+
+        
+	if v in row[status_loc].value:
             r_ind = c
         if v in existing[status_loc]:
             e_ind = c
@@ -223,33 +231,35 @@ def keep_dict(row, existing, ws):
         to_return = True
 
     #check comp date
-    if type(row[comp_loc].value) is not datetime.date and type(row[comp_loc].value) is not datetime.datetime:
+    if type(row[comp_loc].value) is not datetime.date and type(row[comp_loc].value) is not datetime.datetime and row[comp_loc].value is not None:
         r_v = parse(row[comp_loc].value)
     else:
         r_v = row[comp_loc].value
 
-    if type(existing[comp_loc]) is not datetime.date and type(existing[comp_loc]) is not datetime.datetime:
-        e_v = parse(existing[comp_loc])
+    if type(existing[comp_loc]) is not datetime.date and type(existing[comp_loc]) is not datetime.datetime and existing[comp_loc] != 'None':
+	e_v = parse(existing[comp_loc])
     else:
         e_v = existing[comp_loc]
 
-    if r_v < e_v:
-        to_return = True
+    if row[comp_loc].value is not None and existing[comp_loc] != 'None':
+        if r_v < e_v:
+            to_return = True
 
     #check start date
 
-    if type(row[start_loc].value) is not datetime.date and type(row[start_loc].value) is not datetime.datetime:
+    if type(row[start_loc].value) is not datetime.date and type(row[start_loc].value) is not datetime.datetime and row[start_loc].value is not None:
         r_v = parse(row[start_loc].value)
     else:
         r_v = row[start_loc].value
 
-    if type(existing[start_loc]) is not datetime.date and type(existing[start_loc]) is not datetime.datetime:
+    if type(existing[start_loc]) is not datetime.date and type(existing[start_loc]) is not datetime.datetime and existing[start_loc] != 'None':
         e_v = parse(existing[start_loc])
     else:
         e_v = existing[start_loc]
 
-    if r_v < e_v:
-        to_return = True
+    if row[start_loc].value is not None and existing[start_loc] != 'None':
+	if r_v < e_v:
+            to_return = True
 
     return to_return
 
