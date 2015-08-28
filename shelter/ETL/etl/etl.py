@@ -49,10 +49,11 @@ def iterate_reports(act, src, path, db, test):
     if act =='clean':
         new_list = []
         for v in file_list:
-            if 'C-' in new_list or 'C -' in new_list:
+            if 'C-' in v or 'C -' in v:
                 new_list.append(v)
             else:
                 print 'Excluding: ' + v
+        file_list = new_list
 
     print 'Pulling the following: '
     for v in file_list:
@@ -85,7 +86,7 @@ def iterate_reports(act, src, path, db, test):
 
     elif act == 'cons':
         #consolidate
-        to_send = consolidate(pull_wb(db, src).get_sheet_by_name('Database'), repl, 'V')
+        to_send = consolidate(pull_wb(db, src).get_sheet_by_name('Database'), wbs, 'V')
         send_wb(path + 'merged.xlsx', to_send, src)
 
 
