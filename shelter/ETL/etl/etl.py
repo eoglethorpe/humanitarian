@@ -46,6 +46,14 @@ def iterate_reports(act, src, path, db, test):
     if test == True:
         file_list = [file_list[0]]
 
+    if act =='clean':
+        new_list = []
+        for v in file_list:
+            if 'C-' in new_list or 'C -' in new_list:
+                new_list.append(v)
+            else:
+                print 'Excluding: ' + v
+
     print 'Pulling the following: '
     for v in file_list:
         print v
@@ -76,13 +84,7 @@ def iterate_reports(act, src, path, db, test):
             clean_file(wb[0], wb[1], src)
 
     elif act == 'cons':
-        repl = []
-        for v in wbs:
-            if 'C-' in v[1] or 'C -' in v[1]:
-                repl.append(v)
-            else:
-                print 'Excluding: ' + v[1]
-
+        #consolidate
         to_send = consolidate(pull_wb(db, src).get_sheet_by_name('Database'), repl, 'V')
         send_wb(path + 'merged.xlsx', to_send, src)
 
@@ -226,9 +228,9 @@ def keep_dict(row, existing, ws):
         r_v = row[comp_loc].value
 
     if type(existing[comp_loc]) is not datetime.date and type(existing[comp_loc]) is not datetime.datetime:
-        e_v = parse(existing[comp_loc].value)
+        e_v = parse(existing[comp_loc])
     else:
-        e_v = existing[comp_loc].value
+        e_v = existing[comp_loc]
 
     if r_v < e_v:
         to_return = True
@@ -241,9 +243,9 @@ def keep_dict(row, existing, ws):
         r_v = row[start_loc].value
 
     if type(existing[start_loc]) is not datetime.date and type(existing[start_loc]) is not datetime.datetime:
-        e_v = parse(existing[start_loc].value)
+        e_v = parse(existing[start_loc])
     else:
-        e_v = existing[start_loc].value
+        e_v = existing[start_loc]
 
     if r_v < e_v:
         to_return = True
