@@ -7,7 +7,10 @@
 ##mvoe current logs to an 'old' file 
 ##put in run params: test, exclude, folder location?
 ##change to pull down all WSs at same time as opposed to iterating  
-
+##get rid of spcifycing column for uid, should just be one after header
+##logs output to local or dbox
+##do quick reading method at first for faster run time
+import datetime
 
 import dropbox
 import clean
@@ -19,67 +22,70 @@ from openpyxl.cell import column_index_from_string
 from openpyxl import Workbook
 import openpyxl.writer.excel as wrtex
 import time
+import click
+from os import listdir
+from os.path import isfile, join
+from dateutil.parser import parse
 
 #dropbox setup
 db_access = os.environ['db_access']
 client = dropbox.client.DropboxClient(db_access)
 
-DB_PATH = '/2015 Nepal EQ/04 IM/Reporting/Database_&_Template/Data_Cleaning_and_Validation/'
-TEST_FILE = '/test_sheet.xlsx'
+@click.command()
+@click.option('--act', help='what action will we perform', type = click.Choice(['cons','clean']))
+@click.option('--src', help='local files or on dropbox?', type = click.Choice(['db','local']))
+@click.option('--path', help='file path (pull all xls or xlsx files in it')
+@click.option('--db', help='db file if consolidating')
+@click.option('--test', help='are we testing?', is_flag = True)
 
-def iterate_reports():
+def iterate_reports(act, src, path, db, test):
     """cycle through all reports contained in dbox directory"""
 
-    meta = client.metadata(DB_PATH, list=True)
-    file_list = [str(f['path']) for f in meta['contents'] if re.search('xls|xlsx$',str(f))]
-    
-    k = []
-    for v in file_list:
-        if 'C-' in v or 'C -' in v:
-            k.append([v])
-            print 'pulled: ' + v
+    file_list = get_file_list(path, src)
 
-    file_list = k[0]
+    if test == True:
+        file_list = [file_list[0]]
 
-    print 'list is!: ' 
+    print 'Pulling the following: '
     for v in file_list:
         print v
 
-#    for v in exclude:
-#        file_list.remove(v)
-
-#    file_list = [DB_PATH+"/Welthungerhilfe.xlsx/"]
-
-    action = 'consolidate'
+    #pull down all workbooks
     wbs = []
-
     for f in file_list:
         #pull down workbook from specified directory
-        print "pulling! " + f
-        wb_current = pull_wb(f)
+        print "Pulling: " + f
+        wb_current = pull_wb(f, src)
 
         #check to see if properly formatted
         if wb_format(wb_current):
-            if action == 'consolidate':
-                print 'appended ' + f
-                wbs.append(wb_current)
-
-            else:
-                #clean the workboook
-                print "cleaning " + f
-                clean_file(wb_current, f)
+            print 'Appending: ' + f
+            wbs.append((wb_current,f))
 
         else:
             #put in malformatted folder
-            print 'malformatted ' + f
-            path = DB_PATH + '/old_format_or_incorrect/' + f.rsplit('/', 1)[1]
-            #send_wb(path, wb_current)
+            print 'Malformatted ' + f
+            send_path = path + '/old_format_or_incorrect/' + f.rsplit('/', 1)[1]
+            send_wb(send_path, wb_current, src)
 
-    print 'consolidating...'
-    to_send = consolidate(pull_wb('/2015 nepal eq/04 im/reporting/Database_&'
-        +'_Template/EO_testing/baseline_trim.xlsx').get_sheet_by_name('Database'), wbs, 'V')
-    send_wb('/2015 nepal eq/04 im/reporting/Database_&_Template/EO_testing/' +
-        'merged.xlsx', to_send)
+    #clean or consolidate
+    if act == 'clean':
+        #clean workboooks
+        for wb in wbs:
+            print "Cleaning: " + wb[1]
+            clean_file(wb[0], wb[1], src)
+
+    elif act == 'cons':
+        repl = []
+        for v in wbs:
+            if 'C-' in v[1] or 'C -' in v[1]:
+                repl.append(v)
+            else:
+                print 'Excluding: ' + v[1]
+
+        to_send = consolidate(pull_wb(db, src).get_sheet_by_name('Database'), repl, 'V')
+        send_wb(path + 'merged.xlsx', to_send, src)
+
 
 
 def consolidate(baseline, wbs, key_col):
@@ -99,7 +105,7 @@ def consolidate(baseline, wbs, key_col):
     #pull out desired worksheet
     for wb in wbs:
         print 'step2'
-        merge_sheets.append(wb.get_sheet_by_name('Distributions'))
+        merge_sheets.append(wb[0].get_sheet_by_name('Distributions'))
 
     print 'step3'
 
@@ -112,16 +118,12 @@ def consolidate(baseline, wbs, key_col):
 
 
     #add in UID value for sheets
-    #there is a problem where imaginary columns are being retruned by .rows, so we find the
+    #there is a problem where imaginary columns are being returned by .rows, so we find the
     #max value of the header and only look for values of that row that extend out to that column
     for wb in merge_sheets:
-        test_c = 0
         print 'step5'
         max_val = len(wb.rows[0])
         for r in wb.rows[1:]:
-            test_c+=1
-            if test_c % 100 == 0:
-                print test_c
             wb[key_col + xstr(r[0].row)] = get_uid(r[0:max_val], wb)
 
 
@@ -133,21 +135,48 @@ def consolidate(baseline, wbs, key_col):
         baseline[key_col + xstr(r[0].row)] = get_uid(r[0:max_val], baseline)
     print 'in 2'
 
+    #must check if we already have duplicate keys in dictionary or in sheets
+    #if we do: take the entry with greater status, comp date then started date
+
     #add baseline to dict
+    dup_count = 0
     for r in baseline.rows[1:]:
-        base_dict[xstr(r[key_loc].value)] = get_values(r)
+        uid = get_uid(r[0:max_val], baseline)
+        if base_dict.has_key(uid):
+            if not keep_dict(r, base_dict[uid], baseline):
+                base_dict[xstr(r[key_loc].value)] = get_values(r)
+        else:
+                base_dict[xstr(r[key_loc].value)] = get_values(r)
+
+    print 'Found conflicting entries in baseline: ' + str(dup_count)
     print 'in 3'
 
     #merge sheets into a dict
+    dup_count = 0
+    ongoing_count = 0
     for wb in merge_sheets:
         for r in wb.rows[1:]:
-            merge_sheets_dict[xstr(r[key_loc].value)] = get_values(r)
+            uid = get_uid(r[0:max_val], wb)
+            if merge_sheets_dict.has_key(uid):
+                if not keep_dict(r, merge_sheets_dict[uid], merge_sheets):
+                    merge_sheets_dict[xstr(r[key_loc].value)] = get_values(r)
+            else:
+                merge_sheets_dict[xstr(r[key_loc].value)] = get_values(r)
+
+        print 'Found conflicting entries in' + wb['A2'].value + ' : ' + str(dup_count)
+        ongoing_count+=dup_count
+        dup_count = 0
+
+    print 'Found conflicting entires in all sheets: ' + str(ongoing_count)
     print 'in 4'
 
+
     dup_count = 0
+    print "**Duplicates**"
     #go through baseline and remove dups
     for k in base_dict.keys():
         if k in merge_sheets_dict.keys():
+            print k
             base_dict.pop(k)
             dup_count+=1
 
@@ -164,7 +193,67 @@ def consolidate(baseline, wbs, key_col):
     
     return cons_wb
 
+def keep_dict(row, existing, ws):
+    """given conflicting dict entries, return True if current val we should keep
+        ...heirarcy of greater status, comp date then started date"""
+
+    status_loc = column_index_from_string(find_in_header(ws, 'Activity Status'))-1
+    comp_loc = column_index_from_string(find_in_header(ws, 'Completion Date\n (Actual or Planned)'))-1
+    start_loc = column_index_from_string(find_in_header(ws, 'Start date \n(Actual or Planned)'))-1
+
+    #check status
+    status = ['Complete', 'Ongoing', 'Plan']
+    r_ind = 0
+    e_ind = 0
+
+    c=0
+    for v in status:
+        if v in row[status_loc].value:
+            r_ind = c
+        if v in existing[status_loc]:
+            e_ind = c
+        c+=1
+
+    #check index
+    to_return = False
+    if r_ind > e_ind:
+        to_return = True
+
+    #check comp date
+    if type(row[comp_loc].value) is not datetime.date and type(row[comp_loc].value) is not datetime.datetime:
+        r_v = parse(row[comp_loc].value)
+    else:
+        r_v = row[comp_loc].value
+
+    if type(existing[comp_loc]) is not datetime.date and type(existing[comp_loc]) is not datetime.datetime:
+        e_v = parse(existing[comp_loc].value)
+    else:
+        e_v = existing[comp_loc].value
+
+    if r_v < e_v:
+        to_return = True
+
+    #check start date
+
+    if type(row[start_loc].value) is not datetime.date and type(row[start_loc].value) is not datetime.datetime:
+        r_v = parse(row[start_loc].value)
+    else:
+        r_v = row[start_loc].value
+
+    if type(existing[start_loc]) is not datetime.date and type(existing[start_loc]) is not datetime.datetime:
+        e_v = parse(existing[start_loc].value)
+    else:
+        e_v = existing[start_loc].value
+
+    if r_v < e_v:
+        to_return = True
+
+    return to_return
+
+
+
 def get_uid(row, sheet):
+    """return a row's UID based on criteria"""
     vals = ["Implementing agency", "Local partner agency" , "District", 
             "VDC / Municipalities", "Municipal Ward", "Action type", 
             "Action description", "# Items / # Man-hours / NPR",
@@ -172,7 +261,10 @@ def get_uid(row, sheet):
     key = ""
 
     for v in vals:
-        key += xstr(row[column_index_from_string(find_in_header(sheet, v))-1].value)
+        try:
+            key += xstr(row[column_index_from_string(find_in_header(sheet, v))-1].value)
+        except:
+            print 'broken!! ' + str(sheet)
 
     return key
 
@@ -184,9 +276,19 @@ def get_values(r):
 
     return ret
 
-def send_wb(path, wb):
-    print 'sending! ' + path
-    client.put_file(path, wrtex.save_virtual_workbook(wb))
+def send_wb(path, wb, src):
+    print 'Sending: ' + path
+    if src == 'db':
+        client.put_file(path, wrtex.save_virtual_workbook(wb))
+
+    elif src == 'local':
+        print 'path is ' + path
+        print 'splt ' + path.rsplit('/', 1)[0]
+        if not os.path.exists(path.rsplit('/', 1)[0]):
+            print '**Doesnt exist'
+            os.makedirs(path.rsplit('/', 1)[0])
+        wb.save(path)
+
 
 
 def wb_format(wb):
@@ -203,7 +305,7 @@ def wb_format(wb):
     else:
         return True
 
-def clean_file(wb, path): 
+def clean_file(wb, path, src):
     """cycle through a report and apply cleaning algorithms"""
     
     #get our two sheets
@@ -301,8 +403,8 @@ def clean_file(wb, path):
 
     #upload with name of file at end
     #we need to upload the new version!!!!!!!!
-    send_wb(DB_PATH + '/edited/' + path.rsplit('/', 1)[1], wb)
-    print 'uploaded! ' + path
+    send_wb(path.rsplit('/', 1)[0] + '/edited/' + path.rsplit('/', 1)[1], wb, src)
+    print 'uploaded! ' + path.rsplit('/', 1)[0] + '/edited/' + path.rsplit('/', 1)[1]
 
 report_recvd = False
 current_path = ''
@@ -374,7 +476,7 @@ def colvals_notincol(sheet_val,col_val,sheet_ref,col_ref):
         find_last_value(sheet_val, col_val, 'c')):
 
         for cell in row:
-            if str(cell.value) not in to_search:
+            if xstr(cell.value) not in to_search:
                 try:
                     not_in.append(xstr(cell.value))
                 except:
@@ -421,18 +523,32 @@ def find_last_value(sheet, start_location, r_or_c):
     return last_found
 
 
-def pull_wb(location):
-    """return an excel pulled from dropbox"""
+def pull_wb(location, src):
+    """return an excel file from either local or source"""
 
-    in_mem_file = pull_file(location)
+    return wb_strip(location, src)
 
-    wb = load_workbook(in_mem_file, data_only = True)
-    print "pulled! " + str(wb.get_sheet_names())  
-    in_mem_file.close()
+def wb_strip(location, src):
+    if src == 'db':
+        w = load_workbook(pull_from_db(location), read_only = True, data_only = True)
 
-    return wb
+    else:
+        w = load_workbook(location, read_only = True, data_only = True)
 
-def pull_file(location):
+    new_wb = Workbook()
+    for v in w.worksheets:
+        cur_w = new_wb.create_sheet(1, v.title)
+        for r in v.rows:
+            for v in r:
+                if v.value is not None:
+                    cur_w[v.coordinate] = v.value
+
+    print "Pulled: " + location
+    print "With tabs: " + str(new_wb.get_sheet_names())
+
+    return new_wb
+
+def pull_from_db(location):
     """pull a file from dropbox"""
     to_ret = cStringIO.StringIO()
 
@@ -441,6 +557,16 @@ def pull_file(location):
     f.close()
 
     return to_ret
+
+def get_file_list(path, src):
+    """return file list from local or db"""
+    if src == 'db':
+        meta = client.metadata(path, list=True)
+        return [str(f['path']) for f in meta['contents'] if re.search('xls|xlsx$',str(f))]
+
+    elif src == 'local':
+        return [str(path +'/' + f) for f in listdir(path) if isfile(join(path,f)) and re.search('xls|xlsx$',str(f))]
+
 
 def xstr(conv):
     """return a properly encoded string"""
@@ -454,4 +580,3 @@ def test():
 
 if __name__ == '__main__':
     iterate_reports()
-

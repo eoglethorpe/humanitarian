@@ -103,6 +103,13 @@ class TestEtl(unittest.TestCase):
         db.append(('val', 'key'))
         self.assertEqual(etl.get_values(db.rows[0]),['val','key'])
 
+    def test_keep_dict(self):
+        """row is new value, dict is old"""
+        db = Workbook().active
+        db.append(('Activity Status', 'Completion Date\n (Actual or Planned)', 'Start date \n(Actual or Planned)'))
+        db.append(('Completed', '12/15/2015','12/10/2015'))
+        d_v =  ('Completed', '12/15/2015','12/12/2015')
+        self.assertTrue(etl.keep_dict(db.rows[1], d_v, db))
 
 if __name__ == '__main__':
     unittest.main()

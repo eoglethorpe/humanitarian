@@ -296,16 +296,20 @@ def algo17(db,ref):
 def algo18(db,ref):
     #Column S: must be a date>= 25/04/2015
     date_col_loc = etl.find_in_header(db, 'Start date \n(Actual or Planned)')
+
+    if date_col_loc is None:
+        date_col_loc = etl.find_in_header(db, 'Start date')
+
     bad_date = []
 
-    for row in db.iter_rows(date_col_loc + "2:" + 
-        etl.find_last_value(db, date_col_loc, 'c')):
-            cur = str(row[0].value)
-            try:
-                if parse(cur) < parse('4-25-2015'):
-                    bad_date.append(cur + ' @ cell ' + row[0].coordinate)
-            except:
+    for row in db.iter_rows(date_col_loc + "2:" +
+                                    etl.find_last_value(db, date_col_loc, 'c')):
+        cur = str(row[0].value)
+        try:
+            if parse(cur) < parse('4-25-2015'):
                 bad_date.append(cur + ' @ cell ' + row[0].coordinate)
+        except:
+            bad_date.append(cur + ' @ cell ' + row[0].coordinate)
 
     return db, ref, 'Malformatted date\n' + ','.join(bad_date)
 
