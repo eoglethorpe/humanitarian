@@ -111,5 +111,11 @@ class TestEtl(unittest.TestCase):
         d_v =  ('Completed', '12/15/2015','12/12/2015')
         self.assertTrue(etl.keep_dict(db.rows[1], d_v, db))
 
+    def test_none_row_true(self):
+        self.assertTrue(etl.none_row('NoneNoneNoneNoneNoneNone'))
+
+    def test_none_row_false(self):
+        self.assertFalse(etl.none_row('thisisnotrepeating'))
+
 if __name__ == '__main__':
     unittest.main()

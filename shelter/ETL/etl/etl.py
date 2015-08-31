@@ -46,16 +46,6 @@ def iterate_reports(act, src, path, db, test):
     if test == True:
         file_list = [file_list[0]]
 
-    if act =='clean':
-        new_list = []
-        for v in file_list:
-            if 'C-' in v or 'C -' in v:
-                new_list.append(v)
-            else:
-                print 'Excluding: ' + v
-        file_list = new_list
-
-    print 'Pulling the following: '
     for v in file_list:
         print v
 
@@ -89,7 +79,15 @@ def iterate_reports(act, src, path, db, test):
         to_send = consolidate(pull_wb(db, src).get_sheet_by_name('Database'), wbs, 'V')
         send_wb(path + 'merged.xlsx', to_send, src)
 
-
+def clean_exclude(act, file_list):
+    if act =='clean':
+        new_list = []
+        for v in file_list:
+            if 'C-' in v or 'C -' in v:
+                new_list.append(v)
+            else:
+                print 'Excluding: ' + v
+        file_list = new_list
 
 def consolidate(baseline, wbs, key_col):
     """consolidate baseline data and worksheets into one sheet 
@@ -161,7 +159,7 @@ def consolidate(baseline, wbs, key_col):
         for r in wb.rows[1:]:
             uid = get_uid(r[0:max_val], wb)
             if merge_sheets_dict.has_key(uid):
-                if not none_row('None'):
+                if not none_row(uid):
                     dup_count+=1
                     print uid
                 if not keep_dict(r, merge_sheets_dict[uid], wb):
