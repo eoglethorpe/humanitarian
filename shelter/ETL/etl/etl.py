@@ -10,6 +10,8 @@
 ##get rid of spcifycing column for uid, should just be one after header
 ##logs output to local or dbox
 ##do quick reading method at first for faster run time
+##fuzzy match col
+
 import datetime
 
 import dropbox
@@ -464,10 +466,10 @@ def find_in_header(sheet, find_val):
     """find the coordinate of a value in header (assumes header is in row 1)"""
     for row in sheet.iter_rows('A1:' + find_last_value(sheet,'A','r')):
         for cell in row:
-            if cell.value == find_val:
+            if cell.value.replace(' ','').replace('\n','').lower() == find_val.replace(' ','').replace('\n','').lower():
                 return cell.column
 
-    #if we haven't returned anything yet
+    #if we haven't returned anything yet, try fuzzy match
     print 'No header found for: ' + find_val
     return None
 
@@ -582,6 +584,8 @@ def get_file_list(path, src):
 
     elif src == 'local':
         return [str(path +'/' + f) for f in listdir(path) if isfile(join(path,f)) and re.search('xls|xlsx$',str(f))]
+
+def fuzzy_match_col(col, vals):
 
 
 def xstr(conv):
