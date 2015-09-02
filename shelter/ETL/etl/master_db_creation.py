@@ -19,6 +19,10 @@ from openpyxl.cell import column_index_from_string
 
 #SQLA
 Base = declarative_base()
+engine = create_engine('postgresql://shelter:clusterdata@sheltercluster.ci0kkoh87sga.us-east-1.rds.amazonaws.com:5432/shelter')
+Base.metadata.bind = engine
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
 
 #dbox
 db_access = os.environ['db_access']
@@ -98,15 +102,17 @@ def insert_data(path):
     ws = etl.pull_wb(path, 'local').get_sheet_by_name('Distributions')
     locs = get_locs(ws)
 
-    engine = create_engine('postgresql://shelter:clusterdata@sheltercluster.ci0kkoh87sga.us-east-1.rds.amazonaws.com:5432/shelter')
-    Base.metadata.create_all(engine)
-    DBSession = sessionmaker(bind=engine)
-    session = DBSession()
-
+    c=0
     for r in ws.rows[1:]:
         session.add(prep_row(r,locs))
+        if c % 400 == 0:
+            session.flush()
+        c+=1
+        print c
 
+    print 'before committed'
     session.commit()
+    print 'committed'
 
 def prep_row(r,locs):
     """get values from xls to put into db"""
@@ -140,8 +146,13 @@ def prep_row(r,locs):
     act_status=r[locs["act_status"]-1].value,
     start_dt=r[locs["start_dt"]-1].value,
     comp_dt=r[locs["comp_dt"]-1].value,
-    comments=r[locs["comments"]-1].value
+    comments=r[locs["comments"]-1].value,
+    pk=gen_pk(r, locs)
     )
+
+def gen_pk(r, locs):
+    return etl.xstr(r[locs["imp_agency"]-1].value)+etl.xstr(r[locs["local_partner"]-1].value)+etl.xstr(r[locs["district"]-1].value)+etl.xstr(r[locs["vdc"]-1].value)+etl.xstr(r[locs["ward"]-1].value)+etl.xstr(r[locs["act_type"]-1].value)+etl.xstr(r[locs["act_desc"]-1].value)+etl.xstr(r[locs["quantity"]-1].value)+etl.xstr(r[locs["total_hh"]-1].value)
+
 
 def get_locs(ws):
     """find column headers in advance so we don't have to call each time"""
@@ -177,4 +188,7 @@ def get_locs(ws):
     return ret
 
 if __name__ == '__main__':
+    Base.metadata.tables['distributions'].drop(engine)
+    Base.metadata.create_all(engine)
     insert_data()
+    print 'done'

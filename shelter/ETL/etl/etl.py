@@ -586,7 +586,7 @@ def get_file_list(path, src):
         return [str(path +'/' + f) for f in listdir(path) if isfile(join(path,f)) and re.search('xls|xlsx$',str(f))]
 
 def fuzzy_match_col(col, vals):
-
+    False
 
 def xstr(conv):
     """return a properly encoded string"""
