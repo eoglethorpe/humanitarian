@@ -28,7 +28,7 @@ session = DBSession()
 db_access = os.environ['db_access']
 client = dropbox.client.DropboxClient(db_access)
 
-class Distributions(Base):
+def Distributions(Base):
     """create table"""
 
     """
@@ -101,54 +101,42 @@ def insert_data(path):
     path = "/Users/ewanog/tmp/simp.xlsx"
     ws = etl.pull_wb(path, 'local').get_sheet_by_name('Distributions')
     locs = get_locs(ws)
+    conn = engine.connect()
+    ins = Base.metadata.tables['distributions'].insert()
 
     c=0
     for r in ws.rows[1:]:
-        session.add(prep_row(r,locs))
-        if c % 400 == 0:
-            session.flush()
-        c+=1
-        print c
-
-    print 'before committed'
-    session.commit()
-    print 'committed'
-
-def prep_row(r,locs):
-    """get values from xls to put into db"""
-    #we exclude pk as this is created later
-
-    return Distributions(
-    priority=r[locs["priority"]-1].value,
-    access_method=r[locs["access_method"]-1].value,
-    hub=r[locs["hub"]-1].value,
-    as_of=r[locs["as_of"]-1].value,
-    dist_code=r[locs["dist_code"]-1].value,
-    vdc_code=r[locs["vdc_code"]-1].value,
-    act_cat=r[locs["act_cat"]-1].value,
-    imp_agency=r[locs["imp_agency"]-1].value,
-    source_agency=r[locs["source_agency"]-1].value,
-    local_partner=r[locs["local_partner"]-1].value,
-    contact_name=r[locs["contact_name"]-1].value,
-    contact_email=r[locs["contact_email"]-1].value,
-    contact_phone=r[locs["contact_phone"]-1].value,
-    district=r[locs["district"]-1].value,
-    vdc=r[locs["vdc"]-1].value,
-    ward=r[locs["ward"]-1].value,
-    act_type=r[locs["act_type"]-1].value,
-    act_desc=r[locs["act_desc"]-1].value,
-    targeting=r[locs["targeting"]-1].value,
-    quantity=r[locs["quantity"]-1].value,
-    total_hh=r[locs["total_hh"]-1].value,
-    avg_hh_cost=r[locs["avg_hh_cost"]-1].value,
-    fem_hh=r[locs["fem_hh"]-1].value,
-    vuln_hh=r[locs["vuln_hh"]-1].value,
-    act_status=r[locs["act_status"]-1].value,
-    start_dt=r[locs["start_dt"]-1].value,
-    comp_dt=r[locs["comp_dt"]-1].value,
-    comments=r[locs["comments"]-1].value,
-    pk=gen_pk(r, locs)
-    )
+        conn.execute(
+        ins,
+        priority=r[locs["priority"]-1].value,
+        access_method=r[locs["access_method"]-1].value,
+        hub=r[locs["hub"]-1].value,
+        as_of=r[locs["as_of"]-1].value,
+        dist_code=r[locs["dist_code"]-1].value,
+        vdc_code=r[locs["vdc_code"]-1].value,
+        act_cat=r[locs["act_cat"]-1].value,
+        imp_agency=r[locs["imp_agency"]-1].value,
+        source_agency=r[locs["source_agency"]-1].value,
+        local_partner=r[locs["local_partner"]-1].value,
+        contact_name=r[locs["contact_name"]-1].value,
+        contact_email=r[locs["contact_email"]-1].value,
+        contact_phone=r[locs["contact_phone"]-1].value,
+        district=r[locs["district"]-1].value,
+        vdc=r[locs["vdc"]-1].value,
+        ward=r[locs["ward"]-1].value,
+        act_type=r[locs["act_type"]-1].value,
+        act_desc=r[locs["act_desc"]-1].value,
+        targeting=r[locs["targeting"]-1].value,
+        quantity=r[locs["quantity"]-1].value,
+        total_hh=r[locs["total_hh"]-1].value,
+        avg_hh_cost=r[locs["avg_hh_cost"]-1].value,
+        fem_hh=r[locs["fem_hh"]-1].value,
+        vuln_hh=r[locs["vuln_hh"]-1].value,
+        act_status=r[locs["act_status"]-1].value,
+        start_dt=r[locs["start_dt"]-1].value,
+        comp_dt=r[locs["comp_dt"]-1].value,
+        comments=r[locs["comments"]-1].value,
+        pk=gen_pk(r, locs))
 
 def gen_pk(r, locs):
     return etl.xstr(r[locs["imp_agency"]-1].value)+etl.xstr(r[locs["local_partner"]-1].value)+etl.xstr(r[locs["district"]-1].value)+etl.xstr(r[locs["vdc"]-1].value)+etl.xstr(r[locs["ward"]-1].value)+etl.xstr(r[locs["act_type"]-1].value)+etl.xstr(r[locs["act_desc"]-1].value)+etl.xstr(r[locs["quantity"]-1].value)+etl.xstr(r[locs["total_hh"]-1].value)
@@ -188,7 +176,7 @@ def get_locs(ws):
     return ret
 
 if __name__ == '__main__':
-    Base.metadata.tables['distributions'].drop(engine)
+    Base.metadata.tables['distributions'].drop(engine, checkfirst=True)
     Base.metadata.create_all(engine)
     insert_data()
     print 'done'

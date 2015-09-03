@@ -4,6 +4,7 @@ etl/clean.py
 etl/click_test.py
 etl/consolidate.py
 etl/etl.py
+etl/master_db_creation.py
 etl/test_clean.py
 etl/test_etl.py
 etl/tmp_file_conv.py
