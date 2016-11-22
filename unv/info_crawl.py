@@ -1,31 +1,74 @@
 """crawl un info to get all reports"""
-from lxml import html
+import csv
+import re
+import requests
+
 import grequests
+from twill.commands import *
 
+class infodl(object):
 
-def find_count():
-    br = 0
-    gd = 0
-    bd = 0
+    def __init__(self):
+        self.VIEW_BASE = 'http://un.info.np/Net/NeoDocs/View/'
+        self.DL_BASE = 'http://un.info.np/System/SignDownloadFile/'
+        self.LOGIN = 'http://un.info.np/Shared/Login/'
+        self.NUM_DL = 5
 
-    BASE = 'http://un.info.np/Net/NeoDocs/View/'
-    rs = (grequests.get(BASE + str(i)) for i in xrange(5000))
-    reqs = grequests.map(rs)
+    def find_size(self):
+        with open('/tmp/size.txt', 'wb') as f:
+            w = csv.writer(f)
 
-    def exception_handler(request, exception):
-        global br
-        br +=1
+            def exception_handler(request, exception):
+                 w.writerow(['broke', request, exception])
 
-    for req in reqs:
-        if req.text.rfind('Invalid Operation !\r\n') == -1:
-            gd += 1
-        else:
-            bd += 1
+            INC = 12
+            for i in xrange(1, self.NUM_DL, INC):
+                print 'doing ' + str(i)
+                rs = (grequests.get(self.BASE + str(x)) for x in xrange( i, i+INC))
+                resps = grequests.map(rs, exception_handler = exception_handler)
 
-    print 'bad: ' + str(bd)
-    print 'good: ' + str(gd)
-    print 'broken: ' + str(br)
-    print
+                for smalli, req in enumerate(resps):
+                    if req.text.rfind('Invalid Operation !\r\n') == -1:
+                        #this is a valid link
+                        r = re.search('<span id="ctl01_MainContent_view1_LabelFileSize">(.*?)\</span>', req.text)
+                        if r:
+                            sz = r.group(1).split(' ')
+                            w.writerow(['size', i + smalli, sz[0], sz[1]])
+                        else:
+                            w.writerow(['size', i + smalli, 'notfound'])
+
+                    else:
+                        w.writerow(['nolink', i + smalli])
+
+    def dl_raw(self):
+        b = get_browser()
+        b.go(self.LOGIN)
+
+        # posting login form with twill
+        fv("1","ctl01$MainContent$Login1$UserName","")
+        fv("1","ctl01$MainContent$Login1$Password","")
+
+        formaction('1', self.LOGIN)
+        b.submit('Sign In')
+
+        # getting binary content with requests using twill cookie jar
+        cookies = requests.utils.dict_from_cookiejar(get_browser()._session.cookies)
+
+        with open('/tmp/files/type.txt', 'wb') as tf:
+            for i in xrange(self.NUM_DL):
+                response = requests.get(url, stream=True, cookies=cookies)
+
+                with open('/tmp/files/%i.txt' % i, 'wb') as handle:
+                    if not response.ok:
+                        tf.writerow([i, 'bad req'])
+                    else:
+                        tf.writerow([i, response.headers['Content-Type']])
+
+                    print 'write'
+                    for block in response.iter_content(10240):
+                        handle.write(block)
+
 
 if __name__ == '__main__':
-    find_count()
+    i = infodl()
+        i.dl_raw()
