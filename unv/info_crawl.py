@@ -51,8 +51,8 @@ class infodl(object):
         b.go(self.LOGIN)
 
         # posting login form with twill
-        fv("1","ctl01$MainContent$Login1$UserName","ewanogle@gmail.com")
-        fv("1","ctl01$MainContent$Login1$Password","DOCUMENTS1")
+        fv("1","ctl01$MainContent$Login1$UserName","")
+        fv("1","ctl01$MainContent$Login1$Password","")
 
         formaction('1', self.LOGIN)
         b.submit('Sign In')
