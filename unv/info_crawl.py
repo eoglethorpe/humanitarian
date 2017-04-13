@@ -8,6 +8,7 @@ import grequests
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 
+from . import creds
 
 class infodl(object):
 
@@ -17,8 +18,12 @@ class infodl(object):
         self.LOGIN = 'http://un.info.np/Shared/Login/'
         self.NUM_DL = 5
         self.FILE_LOC = '/home/ubuntu/code/sand/info/'
+        self.cred = creds()
 
-    def find_size(self):
+    def _find_a_size(self, req):
+        
+
+    def find_sizes(self):
         print('find size')
         with open(self.FILE_LOC + 'size.txt', 'wb') as f:
             w = csv.writer(f)
@@ -51,8 +56,8 @@ class infodl(object):
         b.go(self.LOGIN)
 
         # posting login form with twill
-        fv("1","ctl01$MainContent$Login1$UserName","")
-        fv("1","ctl01$MainContent$Login1$Password","")
+        fv("1","ctl01$MainContent$Login1$UserName",self.cred.info_name())
+        fv("1","ctl01$MainContent$Login1$Password",self.cred.info_pass())
 
         formaction('1', self.LOGIN)
         b.submit('Sign In')
@@ -147,6 +152,9 @@ class infodl(object):
             uf.SetContentFile(os.path.abspath(dir))
             uf.Upload()
             print('title: %s, mimeType: %s' % (uf['title'], uf['mimeType']))
+
+    def get_names(self):
+        """get all names for exisiting documents"""
 
 if __name__ == '__main__':
     i = infodl()
