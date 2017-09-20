@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<script src='https://api.mapbox.com/mapbox-gl-js/v0.40.0/mapbox-gl.js'></script>
+		<link href='https://api.mapbox.com/mapbox-gl-js/v0.40.0/mapbox-gl.css' rel='stylesheet' />
+	</head>
+
+	<body>
+
+		<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
+
+		<div id='map' style='width: 1200px; height: 800px;'></div>
+		<script>
+		  mapboxgl.accessToken = 'pk.eyJ1IjoiZXdhbmhycnAiLCJhIjoiY2o3c2x2bHFmMzJ3NTMydDZjYTVyZXQzNSJ9.IuNt4xG5hJJPaVyvXeNzUg';
+
+		  var bounds = [
+		    [73.300781, 24.435898], // Southwest coordinates
+		    [95.361328, 32.090719]  // Northeast coordinates
+		];
+
+		  var map = new mapboxgl.Map({
+		    container: 'map',
+		    style: 'mapbox://styles/mapbox/streets-v10',
+		    zoom: 0
+		    // center: [83.568383, 28.407923],
+		    // maxBounds: bounds
+		  });
+
+		omnivore.csv('./arc.csv').addTo(map);
+
+
+			// function makeGeoJSON(csvData) {
+			//     csv2geojson.csv2geojson(csvData, {
+			//         latfield: 'latitude',
+			//         lonfield: 'longitude',
+			//         delimiter: ','
+			//     }, function(err, data) {
+			//         map.on('load', function () {
+			//             map.addLayer({
+			//                 'id': 'airports',
+			//                 'type': 'symbol',
+			//                 'source': {
+			//                     'type': 'geojson',
+			//                     'data': data
+			//                 },
+			//                 'layout': {
+			//                     "icon-image": "marker-15"
+			//                 },
+			//                 'paint': {}
+			//             });
+			//         });    
+			//     });
+			// }
+		</script>
+	</body>
+
+</html>
