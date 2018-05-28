@@ -1,4 +1,9 @@
 *.csv
 *.json
 *.xl*
+*.pyc
 *DS*
+
+#individual files
+*coded_unique_hh*
+*.icloud*
