@@ -7,9 +7,6 @@ import grequests
 import pandas as pd
 from pandas.io.json import json_normalize
 
-
-# pulling data
-
 def pull_indiv_rw(data):
     """
     return all individual crisis data, exclude ones that don't have a 200 status code.
@@ -31,9 +28,6 @@ def pull_indiv_rw(data):
     resps = [json.loads(r.content) for r in resps if r.status_code == 200]
 
     return json_normalize(resps)[['data', 'href', 'totalCount']].add_prefix('rw_gen.')
-
-
-#     return json_normalize(resps, ['totalCount', 'data', 'href']).add_prefix('rw_gen.')
 
 def fetch_api_rw(maxv=None):
     """
@@ -72,10 +66,11 @@ class rw(object):
     def t(self):
         pass
 
-    def __init__(self, test, year):
+    def __init__(self, test, year, sc):
         self.test = test
         self.data = None
         self.year = year
+        self.sc = sc
 
     def extract_date(self, val):
         name = val.replace(' ', '')[-7:]
@@ -218,6 +213,12 @@ class rw(object):
 
         self.data = self.data.merge(l, how='left', on='rw_gen.href')
 
+    def add_uid(self):
+        self.data['rw.uid'] = self.data['data.fields.country.iso'].str.upper() + self.data['rw_gen.year'].map(str)
+
+    def check_in_sc(self):
+        self.data['rw.in_sc'] = self.data['rw.uid'].isin(self.sc['sc.uid'])
+
     def master_pull(self):
         """take crises only after certain year, add month_crisis: mmm, and year_crisis: yyyy to each crisis's entry
 
@@ -241,5 +242,9 @@ class rw(object):
 
         # do crisiswise pull
         self.get_spec_crisis()
+
+        #sc, uid
+        self.add_uid()
+        self.check_in_sc()
 
         return self.data
