@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ed3587e0-7aee-49ce-b07c-ea418c684ce7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/shelter/sohss/regpy/desinv_pull.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shelter/sohss/ipy/fts_pull.ipynb" afterPath="$PROJECT_DIR$/shelter/sohss/ipy/fts_pull.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shelter/sohss/ipy/rw_pull.ipynb" afterPath="$PROJECT_DIR$/shelter/sohss/ipy/rw_pull.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shelter/sohss/regpy/fts_pull.py" afterPath="$PROJECT_DIR$/shelter/sohss/regpy/fts_pull.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shelter/sohss/regpy/main.py" afterPath="$PROJECT_DIR$/shelter/sohss/regpy/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shelter/sohss/regpy/rw_pull.py" afterPath="$PROJECT_DIR$/shelter/sohss/regpy/rw_pull.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shelter/sohss/regpy/sc_pull.py" afterPath="$PROJECT_DIR$/shelter/sohss/regpy/sc_pull.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shelter/sohss/sand.ipynb" afterPath="$PROJECT_DIR$/shelter/sohss/sand.ipynb" />
-    </list>
+    <list default="true" id="ed3587e0-7aee-49ce-b07c-ea418c684ce7" name="Default" comment="" />
     <ignored path="humanitarian.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shelter/sohss/regpy/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="31" column="6" lean-forward="false" selection-start-line="31" selection-start-column="6" selection-end-line="31" selection-end-column="6" />
+            <state relative-caret-position="182">
+              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -57,20 +47,18 @@
       <file leaf-file-name="fts_pull.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shelter/sohss/regpy/fts_pull.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="99" column="32" lean-forward="true" selection-start-line="99" selection-start-column="32" selection-end-line="99" selection-end-column="32" />
-              <folding>
-                <element signature="e#310#337#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="255">
+              <caret line="17" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sc_pull.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="sc_pull.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/shelter/sohss/regpy/sc_pull.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="47" lean-forward="false" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
+            <state relative-caret-position="765">
+              <caret line="51" column="52" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="53" selection-end-column="15" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -121,8 +109,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>&quot;</find>
-      <find>%</find>
       <find>find_siz</find>
       <find>grequests</find>
       <find>requests</find>
@@ -151,6 +137,8 @@
       <find>str</find>
       <find>sc.u</find>
       <find>sc.uid</find>
+      <find>fts_</find>
+      <find>uid</find>
     </findStrings>
     <replaceStrings>
       <replace>'</replace>
@@ -647,7 +635,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34955186" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32933334" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21445782" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2650448" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2650448" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24947146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -928,32 +916,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shelter/sohss/regpy/sc_pull.py">
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/regpy/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="47" lean-forward="false" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
+        <state relative-caret-position="182">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shelter/sohss/regpy/fts_pull.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="99" column="32" lean-forward="true" selection-start-line="99" selection-start-column="32" selection-end-line="99" selection-end-column="32" />
-          <folding>
-            <element signature="e#310#337#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="255">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shelter/sohss/regpy/main.py">
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/regpy/sc_pull.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="31" column="6" lean-forward="false" selection-start-line="31" selection-start-column="6" selection-end-line="31" selection-end-column="6" />
+        <state relative-caret-position="765">
+          <caret line="51" column="52" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="53" selection-end-column="15" />
           <folding>
-            <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
