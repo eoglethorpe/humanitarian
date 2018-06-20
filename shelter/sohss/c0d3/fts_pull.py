@@ -37,7 +37,7 @@ class fts(object):
         flow_df = pd.DataFrame()
         for v in self.fts.iterrows():
             norm = json_normalize(v[1]['fts.data.flows'])
-            norm['fts.uid'] = v[1]['fts.uid']
+            norm['fts.uid'] = v[1]['sc.uid']
 
             if len(flow_df) == 0:
                 flow_df = norm
@@ -59,9 +59,8 @@ class fts(object):
 
         self.hist['sc.fts_url'] = self.hist.apply(lambda x: \
                                                       'https://api.hpc.tools/v1/public/fts/flow?countryISO3={0}&year={1}{2}' \
-                                                  .format(x['sc.iso3'], x['sc.year'], \
-                                                          '&globalClusterCode=shl' if not self.all_sector else ''),
-                                                  axis=1)
+                                                        .format(x['sc.iso3'], x['sc.year'], \
+                                                        '&globalClusterCode=shl' if not self.all_sector else ''), axis=1)
 
         if self.test:
             hrefz = self.hist['sc.fts_url'][:self.test]
@@ -109,3 +108,7 @@ class fts(object):
         piv['total'] = piv['has_plan'] + piv['no_plan']
         return piv
 
+
+# import sc_pull
+# sc = sc_pull.pull()
+# fts = fts(sc = sc, test = 10, all_sector=True)
