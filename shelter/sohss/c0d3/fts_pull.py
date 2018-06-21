@@ -18,6 +18,7 @@ import pandas as pd
 import numpy as np
 from pandas.io.json import json_normalize
 
+
 class fts(object):
     def __init__(self, sc, test=None, all_sector=False):
         self.all_sector = all_sector
@@ -57,10 +58,19 @@ class fts(object):
 
         self.hist = self.sc
 
+        def get_other_sects():
+            """get comma seperated string of all other sectors if needed"""
+            r = json_normalize(json.loads(urllib.request.urlopen("https://api.hpc.tools/v1/public/global-cluster")
+                                          .read().decode()))['data']
+
+            r = [v['code'] for v in r[0]]
+            r.remove('SHL')
+            return ','.join(r)
+
         self.hist['sc.fts_url'] = self.hist.apply(lambda x: \
-                                                      'https://api.hpc.tools/v1/public/fts/flow?countryISO3={0}&year={1}{2}' \
-                                                        .format(x['sc.iso3'], x['sc.year'], \
-                                                        '&globalClusterCode=shl' if not self.all_sector else ''), axis=1)
+                          'https://api.hpc.tools/v1/public/fts/flow?countryISO3={0}&year={1}' \
+                          '&globalClusterCode={2}'.format(x['sc.iso3'], x['sc.year'], \
+                                                          'SHL' if not self.all_sector else get_other_sects()), axis=1)
 
         if self.test:
             hrefz = self.hist['sc.fts_url'][:self.test]
@@ -91,6 +101,8 @@ class fts(object):
         self.fts = self.fts.merge(self.hist, left_on='fts.url', right_on='sc.fts_url')
 
     def get_flow_bdown(self):
+        """break down flows by needed columns"""
+
         def hp(v):
             if 'Plan' in json_normalize(v['destinationObjects']).values or 'Plan' in json_normalize(
                     v['sourceObjects']).values:
@@ -108,7 +120,13 @@ class fts(object):
         piv['total'] = piv['has_plan'] + piv['no_plan']
         return piv
 
-
+#
 # import sc_pull
 # sc = sc_pull.pull()
-# fts = fts(sc = sc, test = 10, all_sector=True)
+# # s_f = fts(test=10, sc=sc)
+# all_f = fts(test=10, sc=sc, all_sector=True)
+#
+# # print(s_f.get_flow_bdown().add_prefix('sc_')) #351513201 PAK2005 sc
+# print(all_f.get_flow_bdown().add_prefix('sc_')) #351513201 PAK2005 all
+#
+# # AGR,CCM,PRO-CPN,CSS,ERY,EDU,TEL,FSC,PRO-GBV,HEA,PRO-HLP,LOG,PRO-MIN,MS,NUT,OTH,PRO,WSH
