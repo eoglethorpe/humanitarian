@@ -66,7 +66,7 @@ class rw(object):
     def t(self):
         pass
 
-    def __init__(self, test, year, sc):
+    def __init__(self, year, sc, test = None):
         self.test = test
         self.data = None
         self.year = year
