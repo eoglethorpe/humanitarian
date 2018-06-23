@@ -126,7 +126,7 @@ def trim_cols(hno):
 
 
 def pull():
-    LOC = '/Users/ewanog/Google Drive/SoHSS/Report/Docs/Datasets/hno_hrp_deep_export.xlsx'
+    LOC = '../hno_hrp_deep_export.xlsx'
     hno = pd.read_excel(LOC, sheet_name='Grouped Entries')
     hno.columns = ['hno_' + v.lower().strip().replace(' - ', '_')
         .replace(' ', '_').replace('-', '') for v in hno.columns.values]

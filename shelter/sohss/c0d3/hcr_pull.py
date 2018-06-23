@@ -44,7 +44,7 @@ class hcr(object):
         """
             get the base table for incoming/outgoing movements, and then use it to generate the other 2 tables
         """
-        LOC = '/Users/ewanog/Google Drive/SoHSS/Report/Docs/Datasets/unhcr_popstats_export_persons_of_concern_2018_06_20.csv'
+        LOC = '../d0cz/unhcr_popstats_export_persons_of_concern_2018_06_20.csv'
         ref = pd.read_csv(LOC, skiprows=3)
         ref.columns = ['ref_' + v.lower().strip().replace(' ', '_') for v in ref.columns.values]
 
