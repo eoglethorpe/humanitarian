@@ -1,3 +1,5 @@
+print('running')
+
 import pandas as pd
 
 from fts_pull import fts
@@ -25,8 +27,9 @@ def get_fts(sc):
     all_b = all_f.get_flow_bdown().add_prefix('non_sc_')
     sf_b = s_f.get_flow_bdown().add_prefix('sc_')
 
-    # mrgd = sf_b.merge(all_b[['fts.uid', 'all_total']], left_on='fts.uid', right_on='fts.uid', how='left')
-    mrgd = sf_b.merge(all_b, left_on='sc_fts.uid', right_on='non_sc_fts.uid', how='left')
+    mrgd = sf_b.merge(all_b[['non_sc_fts.uid', 'non_sc_total']], left_on='sc_fts.uid', right_on='non_sc_fts.uid',
+                      how='left')
+    # mrgd = sf_b.merge(all_b, left_on='sc_fts.uid', right_on='non_sc_fts.uid', how='left')
     mrgd.drop('non_sc_fts.uid', axis=1)
 
     # mrgd['sc_total'] = mrgd['all_total'] - mrgd['sc_total']
@@ -71,13 +74,33 @@ def main():
             }
 
     #merge
+    print('merge rw')
     sc = sc.merge(rw, left_on='sc.uid', right_on='rw.uid', how='left')
+    print(len(sc))
+
+    print('merge fts')
     sc = sc.merge(fts, left_on='sc.uid', right_on='sc_fts.uid', how='left')
+    print(len(sc))
+
+    print('merge div')
     sc = sc.merge(div, left_on='sc.uid', right_on='div_uid', how='left')
+    print(len(sc))
+
+    print('merge dash')
     sc = sc.merge(dash, left_on='sc.uid', right_on='dash_uid', how='left')
+    print(len(sc))
+
+    print('merge hno')
     sc = sc.merge(hno, left_on='sc.uid', right_on='hno_uid', how='left')
+    print(len(sc))
+
+    print('merge hcr_org')
     sc = sc.merge(hcr['org'], left_on='sc.uid', right_on='org_ref_org_id', how='left')
+    print(len(sc))
+
+    print('merge hcr_dest')
     sc = sc.merge(hcr['dest'], left_on='sc.uid', right_on='dest_ref_dest_uid', how='left')
+    print(len(sc))
 
     #TODO: wtf? type error for right join
     # #merge
@@ -90,7 +113,7 @@ def main():
     # for v in merge_d.values():
     #     sc.drop(v, axis=1, inplace=True)
 
-    sc.to_csv('../d0cz/out.csv')
+    sc.to_csv('../d0cz/old_out.csv')
 
 main()
 

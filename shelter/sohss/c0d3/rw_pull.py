@@ -66,11 +66,34 @@ class rw(object):
     def t(self):
         pass
 
-    def __init__(self, year, sc, test = None):
+    def __init__(self, year, sc, test=None):
         self.test = test
         self.data = None
         self.year = year
         self.sc = sc
+
+    def add_crisis_type(self):
+        """
+        patchy patch for pulling crisis type from RW and adding to existing data
+        """
+        hrefz = self.data['rw_gen.href']
+
+        def exception_handler(request, exception):
+            print('Bad URL for ' + str(request))
+
+        resps = []
+        it = 200
+        for v in range(0, len(hrefz), it):
+            print('Pulling individual disaster types for hrefs to ' + str(v))
+            rs = (grequests.get(ref) for ref in hrefz[v: v + it])
+            resps += grequests.map(rs, exception_handler=exception_handler)
+
+        resps = [json.loads(r.content) for r in resps if r.status_code == 200]
+        info = json_normalize(resps)[['data', 'href', 'totalCount']]
+
+        info['rw.disaster_type'] = info.apply(lambda x: x['data'][0]['fields']['primary_type']['name'], axis=1)
+        self.data = self.data.merge(info[['rw.disaster_type', 'href']], left_on='rw_gen.href', right_on='href')
+        self.data.drop('href', axis=1, inplace=True)
 
     def extract_date(self, val):
         name = val.replace(' ', '')[-7:]
@@ -242,9 +265,14 @@ class rw(object):
 
         # do crisiswise pull
         self.get_spec_crisis()
+        self.add_crisis_type()
 
-        #sc, uid
+        # sc, uid
         self.add_uid()
         self.check_in_sc()
 
         return self.data
+
+# import sc_pull
+# r = rw(year = 2005, sc = sc_pull.pull())
+# r.master_pull().to_csv('../d0cz/rw_full.csv')
