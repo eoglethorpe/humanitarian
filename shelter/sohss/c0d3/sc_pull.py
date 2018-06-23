@@ -5,7 +5,7 @@ import country_converter as coco
 
 
 def pull():
-    LOC = '/Users/ewanog/Google Drive/SoHSS/Report/Docs/Datasets/sc_historical.xlsx'
+    LOC = '../d0cz/sc_historical.xlsx'
     hist = pd.read_excel(LOC, sheet_name='Sheet2')
 
     # fix columns
