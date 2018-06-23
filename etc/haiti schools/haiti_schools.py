@@ -11,7 +11,7 @@ from django.utils.encoding import smart_str
 
 def find():
 
-    out = open('./out.csv', 'w')
+    out = open('./old_out.csv', 'w')
     outwrite = csv.writer(out, delimiter=',')
 
     shapefile = fiona.open("/Users/ewanog/code/repos/humanitarian/etc/haiti schools/ht3/hti_admnbnda_adm3_CNIGS2013.shp")

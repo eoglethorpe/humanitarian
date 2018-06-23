@@ -128,14 +128,18 @@ def trim_cols(hno):
 def pull():
     LOC = '/Users/ewanog/Google Drive/SoHSS/Report/Docs/Datasets/hno_hrp_deep_export.xlsx'
     hno = pd.read_excel(LOC, sheet_name='Grouped Entries')
-    hno.columns = ['hno_' + v.lower().strip().replace(' - ', '_').replace(' ', '_').replace('-', '') for v in
-                   hno.columns.values]
+    hno.columns = ['hno_' + v.lower().strip().replace(' - ', '_')
+        .replace(' ', '_').replace('-', '') for v in hno.columns.values]
 
     # get dims and colz
     hno['hno_iso3'] = get_cnt(hno.hno_lead_title)
     hno[['hno_disaster_type', 'hno_year', 'hno_presence_type', 'hno_source_type']] = \
         hno.apply(lambda x: pd.Series(get_dims(x['hno_subdimension'])), axis=1)
     hno['hno_ass_type'] = hno.apply(lambda x: get_ass_type(x['hno_subdimension.2']), axis=1)
+
+    # drop vals without a year, as they're duplicates
+    hno = hno[~hno['hno_year'].isnull()]
+
     hno['hno_uid'] = hno['hno_iso3'] + hno['hno_year']
 
     return trim_cols(hno)
