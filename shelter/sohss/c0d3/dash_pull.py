@@ -5,7 +5,7 @@ import country_converter as coco
 
 
 def pull():
-    LOC = '../180417 Homepage dashboard data.xlsx'
+    LOC = '../d0cz/180417 Homepage dashboard data.xlsx'
     hist = pd.read_excel(LOC, sheet_name='DATA FUNDING & BENEFICIARIES')
 
     # colz
