@@ -21,21 +21,7 @@ def get_rw(sc):
 
 def get_fts(sc):
     """get a sc specific dataset and also all sector dataset (incl shelter)"""
-    all_f = fts(sc = sc, all_sector=True)
-    s_f = fts(sc = sc)
-
-    all_b = all_f.get_flow_bdown().add_prefix('non_sc_')
-    sf_b = s_f.get_flow_bdown().add_prefix('sc_')
-
-    mrgd = sf_b.merge(all_b[['non_sc_fts.uid', 'non_sc_total']], left_on='sc_fts.uid', right_on='non_sc_fts.uid',
-                      how='left')
-    # mrgd = sf_b.merge(all_b, left_on='sc_fts.uid', right_on='non_sc_fts.uid', how='left')
-    mrgd.drop('non_sc_fts.uid', axis=1)
-
-    # mrgd['sc_total'] = mrgd['all_total'] - mrgd['sc_total']
-    # mrgd['non_sc_total'] = mrgd['all_total'] - mrgd['sc_total']
-
-    return mrgd
+    return fts(sc = sc, all_sector=True).get_flow_bdown()
 
 def get_desinv():
     return desinv_pull.pull()
@@ -79,7 +65,7 @@ def main():
     print(len(sc))
 
     print('merge fts')
-    sc = sc.merge(fts, left_on='sc.uid', right_on='sc_fts.uid', how='left')
+    sc = sc.merge(fts, left_on='sc.uid', right_on='fts.uid', how='left')
     print(len(sc))
 
     print('merge div')

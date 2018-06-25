@@ -44,8 +44,7 @@ def read_csv():
 		if row['District']=='Kavrepalanchok':
 			row['District']='Kabhrepalanchok'
 		if row['District']=='sindhuli':
-			row['District']='Sind
-			huli'
+			row['District']='Sindhuli'
 	
 		#skip TBD districts
 		if row['District']!='TBD':
