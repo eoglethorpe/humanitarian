@@ -1,0 +1,7 @@
+country_converter==0.6.5
+openpyxl==2.4.2
+pandas==0.23.0
+numpy==1.14.3
+requests==2.13.0
+grequests==0.3.0
+beautifulsoup4==4.6.0
