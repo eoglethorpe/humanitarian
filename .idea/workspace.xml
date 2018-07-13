@@ -1,29 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7dce5cd-5deb-46ab-aceb-cf2772354931" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/dash_pull.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/dash_pull.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/desinv_merge.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/desinv_pull.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/desinv_scrape.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/hcr_pull.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/hcr_pull.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/hno_pull.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/hno_pull.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/main.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/main.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/rw_pull.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/rw_pull.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/sand.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/sc_pull.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/sc_pull.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/utils.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="f7dce5cd-5deb-46ab-aceb-cf2772354931" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
