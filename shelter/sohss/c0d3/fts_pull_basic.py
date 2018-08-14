@@ -6,10 +6,10 @@ pulling data from FTS for IFRC GO.
 
 1) pulls all values from country listing API
 
-2) queryies https://api.hpc.tools/v1/public/fts/flow?countryISO3=XXX&groupby=year for aggreagted yearly
+2) queries https://api.hpc.tools/v1/public/fts/flow?countryISO3=XXX&groupby=year for aggreagted yearly
 values for funding
 
-3) queries
+3) queries https://api.hpc.tools/v1/public/emergency/country/{0} to get counts by emergency
 
 ***coudl have consolidated in one single call without grouping and then done the grouping manually,
         but the grouping is a little complex
