@@ -15,7 +15,14 @@ def get_cnt(cnts):
             'Emergency Humanitarian Response Plan REVISION 2008': 'Kenya',
             'Philippine: Typhoon Haiyan (Yolanda) Strategic Response Plan 2014': 'Philippines',
             'Strategic Response Plan 2014 Occupied Palestian Territory': 'Palestine',
-            'Sudanese Red Crescent Society Emergency appeal 2014': 'Sudan'}
+            'Sudanese Red Crescent Society Emergency appeal 2014': 'Sudan',
+            'REGIONAL REFUGEE AND MIGRANT RESPONSE PLAN FOR EUROPE.pdf': 'Turkey',
+            'REGIONAL REFUGEE AND MIGRANT RESPONSE PLAN FOR EUROPE': 'Turkey',
+            'Regional Refugee &amp; Resilience Plan 2015-2016': 'Syria',
+            'JRP For Rohingya Humanitarian Crisis.pdf': 'Bangladesh',
+            'Regional Refugee and Resilience Plan 2016-2017': 'Syria',
+            'Regional Refugee and Resilience Plan 2017-2018': 'Syria'
+            }
 
     cnts = [repl[v] if v in repl else v for v in cnts]
 
@@ -126,16 +133,17 @@ def trim_cols(hno):
 
 
 def pull():
-    LOC = '../d0cz/hno_hrp_deep_export.xlsx'
-    hno = pd.read_excel(LOC, sheet_name='Grouped Entries')
+    LOC = '../d0cz/20180807_DEEP_Entries_Export_GFOzH93.xlsx'
+    hno = pd.read_excel(LOC, sheet_name='Entries')
     hno.columns = ['hno_' + v.lower().strip().replace(' - ', '_')
         .replace(' ', '_').replace('-', '') for v in hno.columns.values]
 
+    print(hno.columns)
     # get dims and colz
     hno['hno_iso3'] = get_cnt(hno.hno_lead_title)
     hno[['hno_disaster_type', 'hno_year', 'hno_presence_type', 'hno_source_type']] = \
-        hno.apply(lambda x: pd.Series(get_dims(x['hno_subdimension'])), axis=1)
-    hno['hno_ass_type'] = hno.apply(lambda x: get_ass_type(x['hno_subdimension.2']), axis=1)
+        hno.apply(lambda x: pd.Series(get_dims(x['hno_metadata_subdimension'])), axis=1)
+    hno['hno_ass_type'] = hno.apply(lambda x: get_ass_type(x['hno_shelter_assessment_types_subdimension']), axis=1)
 
     # drop vals without a year, as they're duplicates
     hno = hno[~hno['hno_year'].isnull()]
@@ -143,3 +151,6 @@ def pull():
     hno['hno_uid'] = hno['hno_iso3'] + hno['hno_year']
 
     return trim_cols(hno)
+
+if __name__ == '__main__':
+    pull().to_csv('../d0cz/hno_process_out.csv')
