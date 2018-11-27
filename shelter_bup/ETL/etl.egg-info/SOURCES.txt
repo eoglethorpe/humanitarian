@@ -1,0 +1,15 @@
+setup.py
+etl/__init__.py
+etl/clean.py
+etl/click_test.py
+etl/consolidate.py
+etl/etl.py
+etl/master_db_creation.py
+etl/test_clean.py
+etl/test_etl.py
+etl/tmp_file_conv.py
+etl.egg-info/PKG-INFO
+etl.egg-info/SOURCES.txt
+etl.egg-info/dependency_links.txt
+etl.egg-info/requires.txt
+etl.egg-info/top_level.txt

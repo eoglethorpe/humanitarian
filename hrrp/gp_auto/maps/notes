@@ -1,0 +1,37 @@
+pip install pb_tool
+brew install pyqt
+https://gis.stackexchange.com/questions/123251/calling-qgis-from-macos-python
+
+
+error:
+ERROR: Opening of authentication db FAILED
+WARNING: Auth db query exec() FAILED
+
+try installing qgis3...
+
+ln -s /usr/local/Cellar/python3/3.6.1/Frameworks/Python.framework/ /Library/Frameworks/Python.framework
+https://gis.stackexchange.com/questions/274381/installing-qgis3-on-mac
+
+pip3 install GDAL
+
+----Q stuff
+
+https://docs.qgis.org/testing/en/docs/pyqgis_developer_cookbook/loadlayer.html
+lay = QgsVectorLayer("/Users/ewanog/Documents/work/code/repos/humanitarian/hrrp/gp_auto/maps/hrrp_shapes/wards/merge.shp", "wards", "ogr")
+QgsProject.instance().addMapLayer(lay)
+
+lay = QgsVectorLayer("/Users/ewanog/Documents/work/code/repos/humanitarian/hrrp/gp_auto/maps/hrrp_shapes/palika/GaPaNaPa_hrrp.shp", "wards", "ogr")
+QgsProject.instance().addMapLayer(lay)
+
+lay = QgsVectorLayer("/Users/ewanog/Documents/work/code/repos/humanitarian/hrrp/gp_auto/maps/hrrp_shapes/districts/Districts_hrrp.shp", "wards", "ogr")
+QgsProject.instance().addMapLayer(lay)
+
+
+my_crs = QgsCoordinateReferenceSystem(4326, QgsCoordinateReferenceSystem.EpsgCrsId)
+iface.mapCanvas().mapRenderer().setDestinationCrs(my_crs)
+
+
+project = QgsProject.instance()
+project.layerStore().mapLayers()
+{'data_7e096e8a_02ee_4133_bb3b_9612ff671220': <qgis._core.QgsVectorLayer object at 0x11e2ff0d8>, 'dists_3a0f703a_ad96_440a_bd4e_36c9a7a9996e': <qgis._core.QgsVectorLayer object at 0x11e2ff438>, 'palikas_c4ab98a0_3e46_4d69_93e8_9688f48cc9b5': <qgis._core.QgsVectorLayer object at 0x11e2ff1f8>, 'wards_d7acaf7e_1dcc_4d8b_a845_25bb6170d029': <qgis._core.QgsVectorLayer object at 0x11e2ff168>}
+w = project.layerStore().mapLayers()['wards_d7acaf7e_1dcc_4d8b_a845_25bb6170d029']

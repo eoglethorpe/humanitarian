@@ -1,0 +1,22 @@
+
+import dropbox
+import os
+import cStringIO
+import re
+from openpyxl import load_workbook
+
+str(s.cell('A2').value)
+
+for i in range(1,101):
+    s.cell(row = i, column = 3).value
+
+db = ws.get_sheet_by_name('Database')
+ref = ws.get_sheet_by_name('Reference')
+
+ws = load_workbook('/Users/ewanog/code/nepal-earthquake/shelter/etl/test_sheet.xlsx', data_only=True)
+db = ws.get_sheet_by_name('Database')
+ref = ws.get_sheet_by_name('Reference')
+
+import etl
+f = etl.test()
+etl.clean_file(f,'jan/test')
