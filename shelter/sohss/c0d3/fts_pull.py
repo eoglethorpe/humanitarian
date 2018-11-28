@@ -129,7 +129,10 @@ class fts(object):
         #not graceful, should be better
         self.flows['plan'] = self.flows.apply(lambda x: hp(x), axis=1)
 
+<<<<<<< HEAD
         # we are skipping boundary for now as it's <<<<
+=======
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
         d = self.flows[['fts.uid', 'fts.sector', 'amountUSD']].groupby(['fts.uid', 'fts.sector'], as_index=False).aggregate(
             {'amountUSD': 'sum'})
         piv = pd.pivot_table(d, index='fts.uid', values='amountUSD', aggfunc=np.sum, columns=[d['fts.sector']] \

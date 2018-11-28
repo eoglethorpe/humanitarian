@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7dce5cd-5deb-46ab-aceb-cf2772354931" name="Default" comment="">
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/humanitarian.iml" afterPath="$PROJECT_DIR$/.idea/humanitarian.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/sand.ipynb" afterPath="$PROJECT_DIR$/shelter/sohss/c0d3/sand.ipynb" />
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull_basic.py" afterPath="$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull_basic.py" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,7 +26,11 @@
       <file leaf-file-name="dub_pull.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/dub_pull.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="540">
+=======
+            <state relative-caret-position="0">
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
               <caret line="36" column="34" lean-forward="false" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -43,6 +51,7 @@
       </file>
       <file leaf-file-name="merge_workaround.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/merge_workaround.py">
+<<<<<<< HEAD
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
               <caret line="10" column="26" lean-forward="false" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
@@ -59,10 +68,17 @@
               <folding>
                 <element signature="e#689#716#0" expanded="true" />
               </folding>
+=======
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="26" lean-forward="false" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+              <folding />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="atlas_auto.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hrrp/gp_auto/maps/atlas_auto.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -70,40 +86,75 @@
               <caret line="21" column="35" lean-forward="false" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
+=======
+      <file leaf-file-name="fts_pull_basic.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull_basic.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" column="91" lean-forward="false" selection-start-line="11" selection-start-column="91" selection-end-line="11" selection-end-column="91" />
+              <folding>
+                <element signature="e#689#716#0" expanded="true" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="notes" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hrrp/gp_auto/maps/notes">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="289">
               <caret line="24" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+=======
+      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="14" column="42" lean-forward="true" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/utils.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="165">
               <caret line="14" column="42" lean-forward="false" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
+=======
       <file leaf-file-name="fts_pull.ipynb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
               <selected id="0" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="fts_pull.ipynb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull.ipynb">
+          <provider selected="true" editor-type-id="ipnb-editor">
+            <state>
+              <selected id="0" />
+=======
+      <file leaf-file-name="hcr_pull.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/hcr_pull.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+              <folding />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
       <file leaf-file-name="hcr_pull.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/hcr_pull.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -117,6 +168,11 @@
       <file leaf-file-name="hno_pull.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/hno_pull.py">
           <provider selected="true" editor-type-id="text-editor">
+=======
+      <file leaf-file-name="hno_pull.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/hno_pull.py">
+          <provider selected="true" editor-type-id="text-editor">
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
             <state relative-caret-position="75">
               <caret line="5" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding />
@@ -135,11 +191,40 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+<<<<<<< HEAD
+=======
+      <find>groupby</find>
+      <find>extract_flows</find>
+      <find>get_flow_bdown</find>
+      <find>match</find>
+      <find>globalClusterCode</find>
+      <find>countryiso</find>
+      <find>rint</find>
+      <find>print</find>
+      <find>print(</find>
+      <find>utils.</find>
+      <find>:</find>
+      <find>':'</find>
+      <find>main</find>
+      <find>grouped</find>
+      <find>hno_subdimension</find>
+      <find>get_dim</find>
+      <find>subdim</find>
+      <find>trim_cols</find>
+      <find>get_ass_type</find>
+      <find>xshl</find>
+      <find>fts</find>
+      <find>URL_STR</find>
+      <find>regex</find>
+      <find>import regex</find>
+      <find>import re</find>
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
       <find>re.</find>
       <find>req.t</find>
       <find>req</find>
       <find>req.</find>
       <find>group</find>
+<<<<<<< HEAD
       <find>p</find>
       <find>to_join</find>
       <find>','</find>
@@ -170,6 +255,9 @@
       <replace>', '</replace>
       <replace>atlas</replace>
     </replaceStrings>
+=======
+    </findStrings>
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
     <dirStrings>
       <dir>$PROJECT_DIR$/shelter</dir>
     </dirStrings>
@@ -197,13 +285,17 @@
         <option value="$PROJECT_DIR$/shelter/sohss/c0d3/utils.py" />
         <option value="$PROJECT_DIR$/unv/info_crawl.py" />
         <option value="$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull_basic.py" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/hrrp/gp_auto/maps/notes" />
         <option value="$PROJECT_DIR$/hrrp/gp_auto/maps/atlas_auto.py" />
+=======
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
+<<<<<<< HEAD
     <option name="width" value="1440" />
     <option name="height" value="877" />
   </component>
@@ -220,6 +312,10 @@
         </expanded-state>
       </profile-state>
     </entry>
+=======
+    <option name="width" value="1920" />
+    <option name="height" value="1052" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -261,6 +357,8 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="shelter_bup" />
+<<<<<<< HEAD
+=======
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -275,6 +373,7 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="shelter" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -293,6 +392,31 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="sohss" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="humanitarian" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="humanitarian" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shelter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sohss" />
+<<<<<<< HEAD
+=======
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="d0cz" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -323,6 +447,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+<<<<<<< HEAD
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="PyConsoleOptionsProvider">
@@ -332,6 +457,9 @@
         <option name="myModuleName" value="humanitarian" />
       </console-settings>
     </option>
+=======
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -341,8 +469,13 @@
       <recent name="$PROJECT_DIR$/shelter/sohss/d0cz" />
     </key>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="Python.atlas_auto">
     <configuration default="false" name="fts_pull" type="PythonConfigurationType" factoryName="Python" temporary="true">
+=======
+  <component name="RunManager" selected="Python tests.Doctests in fts_pull_basic">
+    <configuration default="false" name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -354,12 +487,20 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="humanitarian" />
+<<<<<<< HEAD
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull.py" />
+=======
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shelter/sohss/c0d3/main.py" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
+<<<<<<< HEAD
     <configuration default="false" name="hno_pull" type="PythonConfigurationType" factoryName="Python" temporary="true">
+=======
+    <configuration default="false" name="fts_pull" type="PythonConfigurationType" factoryName="Python" temporary="true">
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -371,12 +512,20 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="humanitarian" />
+<<<<<<< HEAD
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shelter/sohss/c0d3/hno_pull.py" />
+=======
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull.py" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
+<<<<<<< HEAD
     <configuration default="false" name="merge_workaround" type="PythonConfigurationType" factoryName="Python" temporary="true">
+=======
+    <configuration default="false" name="hno_pull" type="PythonConfigurationType" factoryName="Python" temporary="true">
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -388,12 +537,20 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="humanitarian" />
+<<<<<<< HEAD
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shelter/sohss/c0d3/merge_workaround.py" />
+=======
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shelter/sohss/c0d3/hno_pull.py" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
+<<<<<<< HEAD
     <configuration default="false" name="Doctests in fts_pull_basic" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+=======
+    <configuration default="false" name="merge_workaround" type="PythonConfigurationType" factoryName="Python" temporary="true">
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
@@ -403,6 +560,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="humanitarian" />
+<<<<<<< HEAD
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull_basic.py" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
@@ -413,20 +571,40 @@
       <method />
     </configuration>
     <configuration default="false" name="atlas_auto" type="PythonConfigurationType" factoryName="Python" temporary="true">
+=======
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shelter/sohss/c0d3/merge_workaround.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Doctests in fts_pull_basic" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
+      <envs />
       <option name="SDK_HOME" value="" />
+<<<<<<< HEAD
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/hrrp/gp_auto/maps" />
+=======
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/shelter/sohss/c0d3" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="humanitarian" />
+<<<<<<< HEAD
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hrrp/gp_auto/maps/atlas_auto.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+=======
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull_basic.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
       <method />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -564,6 +742,7 @@
       <method />
     </configuration>
     <list size="5">
+<<<<<<< HEAD
       <item index="0" class="java.lang.String" itemvalue="Python.fts_pull" />
       <item index="1" class="java.lang.String" itemvalue="Python.hno_pull" />
       <item index="2" class="java.lang.String" itemvalue="Python.merge_workaround" />
@@ -577,6 +756,21 @@
         <item index="2" class="java.lang.String" itemvalue="Python.merge_workaround" />
         <item index="3" class="java.lang.String" itemvalue="Python.hno_pull" />
         <item index="4" class="java.lang.String" itemvalue="Python.fts_pull" />
+=======
+      <item index="0" class="java.lang.String" itemvalue="Python.main" />
+      <item index="1" class="java.lang.String" itemvalue="Python.fts_pull" />
+      <item index="2" class="java.lang.String" itemvalue="Python.hno_pull" />
+      <item index="3" class="java.lang.String" itemvalue="Python.merge_workaround" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Doctests in fts_pull_basic" />
+    </list>
+    <recent_temporary>
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Doctests in fts_pull_basic" />
+        <item index="1" class="java.lang.String" itemvalue="Python.merge_workaround" />
+        <item index="2" class="java.lang.String" itemvalue="Python.hno_pull" />
+        <item index="3" class="java.lang.String" itemvalue="Python.fts_pull" />
+        <item index="4" class="java.lang.String" itemvalue="Python.main" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
       </list>
     </recent_temporary>
   </component>
@@ -603,9 +797,12 @@
     <history-entry file="Doctests_in_fts_pull_basic - 2018.08.13 at 22h 21m 25s.xml">
       <configuration name="Doctests in fts_pull_basic" configurationId="tests" />
     </history-entry>
+<<<<<<< HEAD
     <history-entry file="Doctests_in_fts_pull_basic - 2018.11.21 at 19h 38m 23s.xml">
       <configuration name="Doctests in fts_pull_basic" configurationId="tests" />
     </history-entry>
+=======
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -617,6 +814,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
     <editor active="true" />
     <layout>
@@ -630,12 +828,31 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30828026" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+=======
+    <frame x="0" y="23" width="1920" height="1052" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18325435" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3325301" sideWeight="0.5024665" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26666668" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30833334" sideWeight="0.49753347" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30857876" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+<<<<<<< HEAD
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26666668" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+=======
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -657,11 +874,16 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
+<<<<<<< HEAD
       <option name="time" value="31" />
+=======
+      <option name="time" value="25" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/merge_workaround.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -681,10 +903,35 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+=======
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/dub_pull.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="36" column="34" lean-forward="false" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1515">
+          <caret line="109" column="19" lean-forward="false" selection-start-line="109" selection-start-column="16" selection-end-line="109" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/merge_workaround.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/hno_pull.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -708,14 +955,82 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="25" column="17" lean-forward="true" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+=======
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#310#337#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/hcr_pull.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/hno_pull.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="915">
           <caret line="69" column="59" lean-forward="false" selection-start-line="69" selection-start-column="59" selection-end-line="69" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/dub_pull.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="36" column="34" lean-forward="false" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/sdf.py" />
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="25" column="17" lean-forward="true" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull.py" />
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/rw_pull.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="16" lean-forward="true" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+=======
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="915">
+          <caret line="69" column="59" lean-forward="false" selection-start-line="69" selection-start-column="59" selection-end-line="69" selection-end-column="59" />
+          <folding>
+            <element signature="e#310#337#0" expanded="true" />
+          </folding>
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
         </state>
       </provider>
     </entry>
@@ -728,6 +1043,24 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull.py" />
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/dash_pull.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/main.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/d0cz/old_out.csv" />
+    <entry file="file://$PROJECT_DIR$/shelter_bup/ETL/etl/clean.py">
+=======
     <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/rw_pull.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -736,13 +1069,30 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/main.py">
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="15">
+          <caret line="1" column="1" lean-forward="false" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/../../venv/p3/lib/python3.6/site-packages/pandas/core/frame.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="6378" column="0" lean-forward="false" selection-start-line="6378" selection-start-column="0" selection-end-line="6378" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/d0cz/rw_full.csv" />
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/rw_pull.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-403">
+          <caret line="222" column="57" lean-forward="false" selection-start-line="222" selection-start-column="54" selection-end-line="222" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+=======
     <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull.py" />
     <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/dash_pull.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -781,6 +1131,7 @@
         </state>
       </provider>
     </entry>
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
     <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/desinv_scrape.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -848,6 +1199,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="795">
           <caret line="53" column="15" lean-forward="false" selection-start-line="53" selection-start-column="15" selection-end-line="53" selection-end-column="15" />
+<<<<<<< HEAD
         </state>
       </provider>
     </entry>
@@ -873,12 +1225,19 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shelter/sohss/d0cz/super_fancy_data_processed_extravaganza_raison_d_apostrophe_etre.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/dash_pull.py">
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="7" column="18" lean-forward="false" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/sdf.py" />
     <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/dub_pull.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -938,10 +1297,57 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="14" column="42" lean-forward="false" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+=======
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/desinv_pull.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="19" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../venv/p3/lib/python3.6/site-packages/pandas/core/reshape/merge.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/d0cz/super_fancy_data_processed_extravaganza_raison_d_apostrophe_etre.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/sdf.py" />
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/dub_pull.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="36" column="34" lean-forward="false" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/hno_pull.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/hcr_pull.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
@@ -961,18 +1367,47 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/d0cz/master_manual_merge_rm_hno_dups.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/d0cz/master_new_merge.csv" />
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1515">
+          <caret line="109" column="19" lean-forward="false" selection-start-line="109" selection-start-column="16" selection-end-line="109" selection-end-column="19" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/merge_workaround.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="26" lean-forward="false" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+=======
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="14" column="42" lean-forward="true" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull_basic.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1005">
@@ -987,16 +1422,59 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="24" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/unv/info_crawl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="44" column="40" lean-forward="false" selection-start-line="44" selection-start-column="35" selection-end-line="44" selection-end-column="40" />
+          <folding>
+            <element signature="e#39#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/ETL/tmp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="78" column="29" lean-forward="false" selection-start-line="78" selection-start-column="25" selection-end-line="78" selection-end-column="29" />
+          <folding>
+            <element signature="e#310#337#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/merge_workaround.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="26" lean-forward="false" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/hrrp/gp_auto/maps/atlas_auto.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="21" column="35" lean-forward="false" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/shelter/sohss/c0d3/fts_pull_basic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="91" lean-forward="false" selection-start-line="11" selection-start-column="91" selection-end-line="11" selection-end-column="91" />
+          <folding>
+            <element signature="e#689#716#0" expanded="true" />
+>>>>>>> ff48016fea7cc982fe07ae5b4a525a8a4249c189
           </folding>
         </state>
       </provider>
