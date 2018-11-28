@@ -1,15 +1,17 @@
 import os
 import sys
+
 sys.path.append('/Applications/QGis3.app/Contents/Resources/python/')
 # sys.path.append('/Applications/QGis3.app/Contents/Resources/python/plugins') # if you want to use the processing module, for example
 os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = '/Applications/QGIS3.app/Contents/Plugins'
 
 from qgis.core import *
 from qgis.PyQt.QtXml import QDomDocument
+
+
 # from PyQt5.QtGui import *
 
 class at(object):
-
     def __init__(self):
         self.app = QgsApplication([], False)
         self.app.setPrefixPath('/Applications/QGIS3.app/Contents/MacOS', True)
@@ -19,11 +21,11 @@ class at(object):
         self.project.setCrs(QgsCoordinateReferenceSystem(4326, QgsCoordinateReferenceSystem.EpsgCrsId))
 
     def add_layer(self, *args):
-        #can also add with QgsPr   oject.instance().addMapLayer()
+        # can also add with QgsPr   oject.instance().addMapLayer()
         self.project.addMapLayer(QgsVectorLayer(*args))
 
     def get_layer(self, nm):
-        #return layer object based on its given name, not Qs internal identifier
+        # return layer object based on its given name, not Qs internal identifier
         return {v.name(): v for k, v in self.project.layerStore().mapLayers().items()}[nm]
 
     def join_lays(self, parent, parent_code, to_join, to_join_code):
@@ -57,69 +59,76 @@ class at(object):
     def apply_styling(self, lay, style):
         self.get_layer(lay).loadNamedStyle(style)
 
-    def make_atlas(self, at_lay):
-        # https: // github.com / carey136 / Standalone - Export - Atlas - QGIS3 / blob / master / AtlasExport.py
-
+    def _open_atlas_styling(self):
         with open('./styles/atlas_layout.qpt', 'r') as templateFile:
             self.templateContent = templateFile.read()
 
         self.document = QDomDocument()
         self.document.setContent(self.templateContent)
 
-        self.layout= QgsPrintLayout(self.project)
+    def make_atlas(self, at_lay, type, list=None):
+        # https: // github.com / carey136 / Standalone - Export - Atlas - QGIS3 / blob / master / AtlasExport.py
+        self._open_atlas_styling()
+
+        self.layout = QgsPrintLayout(self.project)
         self.layout.loadFromTemplate(self.document, QgsReadWriteContext(), True)
 
-        myLayout = self.layout
-        myAtlas = myLayout.atlas()
-        myAtlasMap = myAtlas.layout()
+        self.myLayout = self.layout
+        self.myAtlas = self.myLayout.atlas()
+        self.myAtlasMap = self.myAtlas.layout()
 
         #### atlas query ####
-        myAtlas.setCoverageLayer(self.get_layer(at_lay))
-        myAtlas.setEnabled(True)
-        myAtlas.beginRender()
-        myAtlas.setFilterFeatures(True)
-        list = (51001, 51002, 51003)
-        myAtlas.setFilterExpression('"PalikaCode" IN %s' % str(list))
+        self.myAtlas.setCoverageLayer(self.get_layer(at_lay))
+        self.myAtlas.setEnabled(True)
+        self.myAtlas.beginRender()
+        self.myAtlas.setFilterFeatures(True)
+
+        if list:
+            # list = tuple([i for i in range(51001, 51003)])
+            self.myAtlas.setFilterExpression('"PalikaCode" IN %s' % str(list))
 
         #### image output name ####
-        myAtlas.setFilenameExpression('PalikaCode')
+        self.myAtlas.setFilenameExpression('PalikaCode')
+
+        print("Starting output")
 
         #### image and pdf settings ####
-        # image_settings = QgsLayoutExporter(myAtlasMap).SvgExportSettings()
-        image_settings = QgsLayoutExporter(myAtlasMap).ImageExportSettings()
-        image_settings.dpi = -1
-        imageExtension = '.png'
-        #### Export images or PDF (depending on flag) ####
+        if type == 'svg':
+            image_settings = QgsLayoutExporter(self.myAtlasMap).SvgExportSettings()
+            image_settings.dpi = -1
+            image_settings.exportMetadata = False
 
-        print(myAtlas.count())
-        print(myAtlas.layout())
+            result, error = QgsLayoutExporter.exportToSvg(self.myAtlas,
+                                                          baseFilePath='./atlas_out/',
+                                                          settings=image_settings)
+            if not result == QgsLayoutExporter.Success:
+                print(error)
 
-        # result, error = QgsLayoutExporter.exportToSvg(myAtlas,
-        #                                                 baseFilePath= './atlas_out/',
-        #                                                 settings=image_settings)
+        elif type == 'img':
+            image_settings = QgsLayoutExporter(self.myAtlasMap).ImageExportSettings()
+            imageExtension = '.png'
 
+            result, error = QgsLayoutExporter.exportToImage(self.myAtlas,
+                                                            baseFilePath='./atlas_out/',
+                                                            extension=imageExtension, settings=image_settings)
+            if not result == QgsLayoutExporter.Success:
+                print(error)
 
-        result, error = QgsLayoutExporter.exportToImage(myAtlas,
-                                                        baseFilePath= './atlas_out/',
-                                                        extension=imageExtension, settings=image_settings)
-        if not result == QgsLayoutExporter.Success:
-            print(error)
-
-        print("Success!")
+        print("Script done")
 
     def make_atlas_old(self, at_lay):
-        #code that doesn't really work
+        # code that doesn't really work
 
         # Load template from file
 
-        #grab template file
+        # grab template file
         with open('', 'r') as templateFile:
             self.templateContent = templateFile.read()
 
         self.document = QDomDocument()
         self.document.setContent(self.templateContent)
 
-        self.layout= QgsPrintLayout(self.project)
+        self.layout = QgsPrintLayout(self.project)
         self.layout.loadFromTemplate(self.document, QgsReadWriteContext(), False)
         self.layout.initializeDefaults()
 
@@ -147,7 +156,7 @@ class at(object):
 
 
 
-        #https://gis.stackexchange.com/questions/272774/using-qgis-3-0-api-for-layout
+        # https://gis.stackexchange.com/questions/272774/using-qgis-3-0-api-for-layout
 
         # for comp in self.projectLayoutManager.printLayouts():
         #     print(comp)
@@ -204,7 +213,6 @@ class at(object):
         # atlas.setFilterFeatures(True)
         #
 
-
     def exit(self):
         self.app.exitQgis()
 
@@ -213,24 +221,39 @@ def go():
     atlas = at()
 
     atlas.add_layer('./hrrp_shapes/wards/merge.shp', 'wards', 'ogr')
-    #for hiding other palikas while atlasing
+    # for hiding other palikas while atlasing
     atlas.add_layer('./hrrp_shapes/palika/GaPaNaPa_hrrp.shp', 'palika_hide', 'ogr')
     atlas.add_layer('./hrrp_shapes/palika/GaPaNaPa_hrrp.shp', 'palikas', 'ogr')
     atlas.add_layer('./hrrp_shapes/districts/Districts_hrrp.shp', 'dists', 'ogr')
     atlas.add_layer('./data/data.csv', 'data', 'ogr')
 
-    atlas.join_lays(parent = 'wards', parent_code = 'N_WCode', to_join = 'data', to_join_code ='N_WCode')
+    atlas.join_lays(parent='wards', parent_code='N_WCode', to_join='data', to_join_code='N_WCode')
 
     atlas.apply_styling('dists', './styles/dist_style.qml')
     atlas.apply_styling('palikas', './styles/palika_style.qml')
     atlas.apply_styling('palika_hide', './styles/palika_hide_style.qml')
     atlas.apply_styling('wards', './styles/ward_style.qml')
 
-    atlas.make_atlas('palikas')
+    list = (29004,
+            10001,
+            39001,
+            36001,
+            13001,
+            36002,
+            38001,
+            40001,
+            43001,
+            39002,
+            10002,
+            45001)
+    atlas.make_atlas('palikas', 'svg')
+
+    # atlas.make_atlas('palikas', 'svg', list)
 
     atlas.write_proj('./inprog.qgs')
 
     atlas.exit()
+
 
 go()
 
