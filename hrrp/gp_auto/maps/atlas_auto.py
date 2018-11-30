@@ -21,12 +21,21 @@ class at(object):
         self.project.setCrs(QgsCoordinateReferenceSystem(4326, QgsCoordinateReferenceSystem.EpsgCrsId))
 
     def add_layer(self, *args):
-        # can also add with QgsPr   oject.instance().addMapLayer()
+        # can also add with QgsProject.instance().addMapLayer()
         self.project.addMapLayer(QgsVectorLayer(*args))
+
+        #check that layer was added OK
+        self.get_layer(args[1])
 
     def get_layer(self, nm):
         # return layer object based on its given name, not Qs internal identifier
-        return {v.name(): v for k, v in self.project.layerStore().mapLayers().items()}[nm]
+        #if the name isn't there, return none
+        layz = {v.name(): v for k, v in self.project.layerStore().mapLayers().items()}
+        if nm in layz:
+            return layz[nm]
+
+        else:
+            raise Exception("%s not in layer listing!" %nm)
 
     def join_lays(self, parent, parent_code, to_join, to_join_code):
         joinObject = QgsVectorLayerJoinInfo()
