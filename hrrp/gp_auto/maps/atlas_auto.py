@@ -15,7 +15,8 @@ from openpyxl import load_workbook
 # from PyQt5.QtGui import *
 
 class at(object):
-    def __init__(self):
+    def __init__(self, data_uri, wards_uri, palika_uri, dists_uri, dists_syle, pka_style, pka_hide_style, ward_style,
+                        parent_join_cd, to_join_code, pka_list = None):
         self.app = QgsApplication([], False)
         self.app.setPrefixPath('/Applications/QGIS3.app/Contents/MacOS', True)
         self.app.initQgis()
@@ -23,13 +24,43 @@ class at(object):
         self.project = QgsProject.instance()
         self.project.setCrs(QgsCoordinateReferenceSystem(4326, QgsCoordinateReferenceSystem.EpsgCrsId))
 
+        self.data_uri = data_uri
+        self.wards_uri = wards_uri
+        self.palika_uri = palika_uri
+        self.dists_uri = dists_uri
+        self.dists_syle = dists_syle
+        self.pka_style = pka_style
+        self.pka_hide_style = pka_hide_style
+        self.ward_style = ward_style
+        self.parent_join_cd = parent_join_cd
+        self.to_join_code = to_join_code
+        self.pka_list = pka_list
+
+    def make_maps(self):
+        self.add_layer(self.get_map_data(self.data_uri, 'Map Data'))
+        self.add_layer(self.wards_uri, 'wards', 'ogr')
+        self.add_layer(self.palika_uri, 'palika_hide', 'ogr') # for hiding other palikas while atlasing
+        self.add_layer(self.palika_uri, 'palikas', 'ogr')
+        self.add_layer(self.dists_uri, 'dists', 'ogr')
+
+        self.join_lays(parent='wards', parent_code=self.parent_join_cd, to_join='data', to_join_code=self.to_join_code)
+
+        self.apply_styling('dists', self.dists_syle)
+        self.apply_styling('palikas', self.pka_style)
+        self.apply_styling('palika_hide', self.pka_hide_style)
+        self.apply_styling('wards', self.ward_style)
+
+        self.make_atlas('palikas', 'svg')
+        self.write_proj('./etc/inprog.qgs')
+
+        self.exit()
+
     def add_layer(self, *args):
         """check to see if layer properly added.
             can also add with QgsProject.instance().addMapLayer() """
 
         #check to see if we're sending an already formed layer to add
         if len(args) == 1 & isinstance(args[0], QgsVectorLayer):
-            print(type(args[0]))
             self.project.addMapLayer(args[0])
             nm = args[0].name()
 
@@ -62,27 +93,12 @@ class at(object):
     def write_proj(self, loc):
         self.project.write(loc)
 
-
-    def set_col_type(self):
-        pass
-        ##dunno
-
-        # dat.fields()[2].setTypeName('Integer')
-        # provider = dat.dataProvider()
-        # updateMap = {}
-        # fieldIdx = dat.fields().indexFromName('val')
-        # # features = provider.getFeatures()
-        # # for feature in features:
-        # updateMap[feature.id()] = {fieldIdx: 'a'}
-        # provider.changeAttributeValues(updateMap)
-
     def get_layers(self):
         return self.project.layerStore().mapLayers()
 
 
     def apply_styling(self, lay, style):
         self.get_layer(lay).loadNamedStyle(style)
-
 
     def _open_atlas_styling(self):
         with open('./styles/atlas_layout.qpt', 'r') as templateFile:
@@ -91,8 +107,7 @@ class at(object):
         self.document = QDomDocument()
         self.document.setContent(self.templateContent)
 
-
-    def make_atlas(self, at_lay, type, list=None):
+    def make_atlas(self, at_lay, type):
         # https: // github.com / carey136 / Standalone - Export - Atlas - QGIS3 / blob / master / AtlasExport.py
         self._open_atlas_styling()
 
@@ -109,9 +124,9 @@ class at(object):
         self.myAtlas.beginRender()
         self.myAtlas.setFilterFeatures(True)
 
-        if list:
+        if self.pka_list:
             # list = tuple([i for i in range(51001, 51003)])
-            self.myAtlas.setFilterExpression('"PalikaCode" IN %s' % str(list))
+            self.myAtlas.setFilterExpression('"PalikaCode" IN %s' % str(self.pka_list))
 
         #### image output name ####
         self.myAtlas.setFilenameExpression('PalikaCode')
@@ -143,7 +158,7 @@ class at(object):
         print("Script done")
 
     def _get_xls_row_vals(self, row):
-        #get all values from an excel row
+        """get all values from an excel row"""
         return [v.value for v in row]
 
     def _transform_map_data(self):
@@ -182,7 +197,6 @@ class at(object):
             c.writerow(('ward','value'))
             for r in self.map_data_trans:
                 c.writerow(r)
-                print(r)
 
         vl = QgsVectorLayer('./data/%s' % TMP_DATA, 'data', 'ogr')
 
@@ -190,57 +204,3 @@ class at(object):
 
     def exit(self):
         self.app.exitQgis()
-
-
-def go():
-    atlas = at()
-
-    atlas.add_layer(atlas.get_map_data('./data/profile_data_structure.xlsx', 'Map Data'))
-    atlas.add_layer('./hrrp_shapes/wards/merge.shp', 'wards', 'ogr')
-    # for hiding other palikas while atlasing
-    atlas.add_layer('./hrrp_shapes/palika/GaPaNaPa_hrrp.shp', 'palika_hide', 'ogr')
-    atlas.add_layer('./hrrp_shapes/palika/GaPaNaPa_hrrp.shp', 'palikas', 'ogr')
-    atlas.add_layer('./hrrp_shapes/districts/Districts_hrrp.shp', 'dists', 'ogr')
-
-    atlas.join_lays(parent='wards', parent_code='N_WCode', to_join='data', to_join_code='ward')
-
-    atlas.apply_styling('dists', './styles/dist_style.qml')
-    atlas.apply_styling('palikas', './styles/palika_style.qml')
-    atlas.apply_styling('palika_hide', './styles/palika_hide_style.qml')
-    atlas.apply_styling('wards', './styles/ward_style.qml')
-
-    list = (29004,
-            10001,
-            39001,
-            36001,
-            13001,
-            36002,
-            38001,
-            40001,
-            43001,
-            39002,
-            10002,
-            45001)
-    # atlas.make_atlas('palikas', 'svg')
-
-    atlas.make_atlas('palikas', 'svg', list)
-
-    atlas.write_proj('./inprog.qgs')
-
-    atlas.exit()
-
-
-go()
-
-# #show joins:
-# lay.vectorJoins()
-#
-# #good way to do joins:
-# import processing
-# result = processing.runandload('qgis:joinattributestable', lay, csv, 'HLCIT_CODE', 'HLCIT_CODE', None)
-#
-# #apply styling to layers:
-# l.loadNamedStyle()
-#
-
-
