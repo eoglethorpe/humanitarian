@@ -51,7 +51,7 @@ class at(object):
         self.apply_styling('wards', self.ward_style)
 
         self.make_atlas('palikas', 'svg')
-        self.write_proj('./inprog.qgs')
+        self.write_proj('./etc/inprog.qgs')
 
         self.exit()
 
