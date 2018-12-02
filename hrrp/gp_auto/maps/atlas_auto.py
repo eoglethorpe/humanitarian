@@ -1,5 +1,6 @@
 import os
 import sys
+import csv
 
 sys.path.append('/Applications/QGis3.app/Contents/Resources/python/')
 # sys.path.append('/Applications/QGis3.app/Contents/Resources/python/plugins') # if you want to use the processing module, for example
@@ -7,6 +8,8 @@ os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = '/Applications/QGIS3.app/Contents/Pl
 
 from qgis.core import *
 from qgis.PyQt.QtXml import QDomDocument
+from qgis.PyQt.QtCore import QVariant
+from openpyxl import load_workbook
 
 
 # from PyQt5.QtGui import *
@@ -21,11 +24,20 @@ class at(object):
         self.project.setCrs(QgsCoordinateReferenceSystem(4326, QgsCoordinateReferenceSystem.EpsgCrsId))
 
     def add_layer(self, *args):
-        # can also add with QgsProject.instance().addMapLayer()
-        self.project.addMapLayer(QgsVectorLayer(*args))
+        """check to see if layer properly added.
+            can also add with QgsProject.instance().addMapLayer() """
 
-        #check that layer was added OK
-        self.get_layer(args[1])
+        #check to see if we're sending an already formed layer to add
+        if len(args) == 1 & isinstance(args[0], QgsVectorLayer):
+            print(type(args[0]))
+            self.project.addMapLayer(args[0])
+            nm = args[0].name()
+
+        else:
+            self.project.addMapLayer(QgsVectorLayer(*args))
+            nm = args[1]
+
+        self.get_layer(nm)
 
     def get_layer(self, nm):
         # return layer object based on its given name, not Qs internal identifier
@@ -46,8 +58,10 @@ class at(object):
         joinObject.setJoinLayer(self.get_layer(to_join))
         self.get_layer(parent).addJoin(joinObject)
 
+
     def write_proj(self, loc):
         self.project.write(loc)
+
 
     def set_col_type(self):
         pass
@@ -65,8 +79,10 @@ class at(object):
     def get_layers(self):
         return self.project.layerStore().mapLayers()
 
+
     def apply_styling(self, lay, style):
         self.get_layer(lay).loadNamedStyle(style)
+
 
     def _open_atlas_styling(self):
         with open('./styles/atlas_layout.qpt', 'r') as templateFile:
@@ -74,6 +90,7 @@ class at(object):
 
         self.document = QDomDocument()
         self.document.setContent(self.templateContent)
+
 
     def make_atlas(self, at_lay, type, list=None):
         # https: // github.com / carey136 / Standalone - Export - Atlas - QGIS3 / blob / master / AtlasExport.py
@@ -125,102 +142,51 @@ class at(object):
 
         print("Script done")
 
-    def make_atlas_old(self, at_lay):
-        # code that doesn't really work
+    def _get_xls_row_vals(self, row):
+        #get all values from an excel row
+        return [v.value for v in row]
 
-        # Load template from file
+    def _transform_map_data(self):
+        """
+        take palika | ward 1 ... | ward n layout to palika-# | val
+        returns a list of tuples
+        """
+        WARD_FMT = '%s-%s'
+        self.map_data_trans = []
+        lookup = {i.column: ''.join(filter(lambda x: x.isdigit(), i.value)) for i in self.sht[1]}
 
-        # grab template file
-        with open('', 'r') as templateFile:
-            self.templateContent = templateFile.read()
+        #skip over header
+        rs = iter(self.sht.rows)
+        next(rs)
+        next(rs)
+        for r in rs:
+            pka = r[0].value
+            for c in r[1:]:
+                if c.value is None:
+                    c.value = 0
 
-        self.document = QDomDocument()
-        self.document.setContent(self.templateContent)
+                self.map_data_trans.append((WARD_FMT%(pka, lookup[c.column]), c.value))
 
-        self.layout = QgsPrintLayout(self.project)
-        self.layout.loadFromTemplate(self.document, QgsReadWriteContext(), False)
-        self.layout.initializeDefaults()
+    def get_map_data(self, uri, sht_nm):
+        """
+        work around for pulling out Map Data sheet and writing to csv then reading as layer
+        """
+        self.wb = load_workbook(uri, data_only=True)
+        self.sht = self.wb.get_sheet_by_name(sht_nm)
+        TMP_DATA = 'tmp_data.csv'
 
-        # the atlas map
-        self.atlas_map = QgsLayoutItemMap(self.layout)
-        # self.atlas_map.attemptSetSceneRect(QRectF(20, 20, 130, 130))
-        self.atlas_map.setFrameEnabled(True)
-        self.atlas_map.setLayers([self.get_layer(at_lay)])
-        self.layout.addLayoutItem(self.atlas_map)
+        self._transform_map_data()
 
-        # the atlas
-        self.atlas = self.layout.atlas()
-        self.atlas.setCoverageLayer(self.get_layer(at_lay))
-        self.atlas.setEnabled(True)
+        with open('./data/%s' % TMP_DATA, 'w', newline="") as f:
+            c = csv.writer(f)
+            c.writerow(('ward','value'))
+            for r in self.map_data_trans:
+                c.writerow(r)
+                print(r)
 
-        # an overview
-        self.overview = QgsLayoutItemMap(self.layout)
-        # self.overview.attemptSetSceneRect(QRectF(180, 20, 50, 50))
-        self.overview.setFrameEnabled(True)
-        self.overview.overview().setLinkedMap(self.atlas_map)
-        self.overview.setLayers([self.get_layer(at_lay)])
-        self.layout.addLayoutItem(self.overview)
-        nextent = QgsRectangle(49670.718, 6415139.086, 699672.519, 7065140.887)
-        self.overview.setExtent(nextent)
+        vl = QgsVectorLayer('./data/%s' % TMP_DATA, 'data', 'ogr')
 
-
-
-        # https://gis.stackexchange.com/questions/272774/using-qgis-3-0-api-for-layout
-
-        # for comp in self.projectLayoutManager.printLayouts():
-        #     print(comp)
-        #     result, error = QgsLayoutExporter.exportToImage(atlas,
-        #                                                     baseFilePath='./atlas_out/', extension='.png',
-        #                                                     settings=image_settings)
-        #     if not result == QgsLayoutExporter.Success:
-        #         print(error)
-
-        # # Generate atlas
-        # self.atlas.beginRender()
-        # self.projectLayoutManager = self.project.layoutManager()
-        #
-        # self.image_settings = exporter.ImageExportSettings()
-        # self.image_settings.dpi = 300  # or whatever you want
-        #
-        # while self.atlas.next():
-        #     self.atlas.prepareForFeature(i)
-        #     print(self.atlas.currentFeatureNumber())
-
-        # for i in range(0, self.atlas.numFeatures()):
-        #     self.atlas.prepareForFeature(i)
-        #     output_jpeg = os.path.join('/.atlas_out/', '% i out.jpeg' % i)
-        #     image = self.layout.printPageAsRaster(0)
-        #     image.save(output_jpeg)
-        #     self.layout.endRender()
-
-
-        # #grab template file
-        # with open('/Users/ewanog/Documents/work/code/repos/humanitarian/hrrp/gp_auto/maps/map_out.qpt', 'r') as templateFile:
-        #     self.templateContent = templateFile.read()
-        #
-        # self.document = QDomDocument()
-        # self.document.setContent(self.templateContent)
-        #
-        # self.composition = QgsLayout(self.project)
-        # self.composition.loadFromTemplate(self.document, QgsReadWriteContext(), False)
-        #
-        # # Get map composition and define scale
-        # self.atlasMap = QgsLayoutItemMap(self.composition)
-        # self.composition.initializeDefaults()
-        # # atlasMap.setNewScale(int(scale))
-
-
-        # # Setup Atlas
-        # atlas = QgsAtlasComposition(composition)
-        # atlas.setCoverageLayer(self.get_layer(at_lay))  # Atlas run from desktop_search
-        # # atlas.setComposerMap(atlasMap)
-        # atlas.setFixedScale(True)
-        # atlas.fixedScale()
-        # atlas.setHideCoverage(False)
-        # atlas.setFilterFeatures(True)
-        # atlas.setFeatureFilter("reference = '%s'" % (str(ref)))
-        # atlas.setFilterFeatures(True)
-        #
+        return vl
 
     def exit(self):
         self.app.exitQgis()
@@ -229,14 +195,14 @@ class at(object):
 def go():
     atlas = at()
 
+    atlas.add_layer(atlas.get_map_data('./data/profile_data_structure.xlsx', 'Map Data'))
     atlas.add_layer('./hrrp_shapes/wards/merge.shp', 'wards', 'ogr')
     # for hiding other palikas while atlasing
     atlas.add_layer('./hrrp_shapes/palika/GaPaNaPa_hrrp.shp', 'palika_hide', 'ogr')
     atlas.add_layer('./hrrp_shapes/palika/GaPaNaPa_hrrp.shp', 'palikas', 'ogr')
     atlas.add_layer('./hrrp_shapes/districts/Districts_hrrp.shp', 'dists', 'ogr')
-    atlas.add_layer('./data/data.csv', 'data', 'ogr')
 
-    atlas.join_lays(parent='wards', parent_code='N_WCode', to_join='data', to_join_code='N_WCode')
+    atlas.join_lays(parent='wards', parent_code='N_WCode', to_join='data', to_join_code='ward')
 
     atlas.apply_styling('dists', './styles/dist_style.qml')
     atlas.apply_styling('palikas', './styles/palika_style.qml')
@@ -255,9 +221,9 @@ def go():
             39002,
             10002,
             45001)
-    atlas.make_atlas('palikas', 'svg')
+    # atlas.make_atlas('palikas', 'svg')
 
-    # atlas.make_atlas('palikas', 'svg', list)
+    atlas.make_atlas('palikas', 'svg', list)
 
     atlas.write_proj('./inprog.qgs')
 

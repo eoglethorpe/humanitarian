@@ -1,14 +1,14 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis simplifyAlgorithm="0" labelsEnabled="1" version="3.4.1-Madeira" minScale="1e+8" simplifyDrawingHints="1" simplifyMaxScale="1" maxScale="0" simplifyDrawingTol="1" simplifyLocal="1" styleCategories="AllStyleCategories" hasScaleBasedVisibilityFlag="0" readOnly="0">
+<qgis hasScaleBasedVisibilityFlag="0" maxScale="0" minScale="1e+8" labelsEnabled="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" simplifyDrawingHints="1" simplifyLocal="1" readOnly="0" simplifyAlgorithm="0" simplifyDrawingTol="1" version="3.4.1-Madeira">
   <flags>
     <Identifiable>1</Identifiable>
     <Removable>1</Removable>
     <Searchable>1</Searchable>
   </flags>
-  <renderer-v2 symbollevels="0" enableorderby="0" forceraster="0" type="singleSymbol">
+  <renderer-v2 type="singleSymbol" symbollevels="0" forceraster="0" enableorderby="0">
     <symbols>
-      <symbol alpha="1" clip_to_extent="1" type="fill" name="0">
-        <layer enabled="1" class="SimpleFill" pass="0" locked="0">
+      <symbol alpha="1" type="fill" name="0" clip_to_extent="1">
+        <layer class="SimpleFill" pass="0" enabled="1" locked="0">
           <prop k="border_width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
           <prop k="color" v="183,72,75,0"/>
           <prop k="joinstyle" v="bevel"/>
@@ -35,15 +35,15 @@
   </renderer-v2>
   <labeling type="simple">
     <settings>
-      <text-style fontSizeUnit="Point" useSubstitutions="0" fontWordSpacing="0" fontUnderline="0" isExpression="0" fontFamily=".SF NS Text" fontSizeMapUnitScale="3x:0,0,0,0,0,0" blendMode="0" fontCapitals="0" fontItalic="0" previewBkgrdColor="#ffffff" multilineHeight="1" namedStyle="Regular" fontSize="10" fontLetterSpacing="0" fontStrikeout="0" fieldName="FIRST_DIST" fontWeight="50" textColor="0,0,0,255" textOpacity="1">
-        <text-buffer bufferSize="1" bufferSizeUnits="MM" bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferDraw="0" bufferNoFill="1" bufferBlendMode="0" bufferOpacity="1" bufferColor="255,255,255,255" bufferJoinStyle="128"/>
-        <background shapeRotation="0" shapeFillColor="255,255,255,255" shapeRadiiX="0" shapeOffsetY="0" shapeSizeType="0" shapeDraw="0" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeOffsetUnit="MM" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeUnit="MM" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeSizeY="0" shapeRadiiUnit="MM" shapeJoinStyle="64" shapeType="0" shapeOpacity="1" shapeBorderWidthUnit="MM" shapeSizeX="0" shapeSVGFile="" shapeRotationType="0" shapeRadiiY="0" shapeBorderColor="128,128,128,255" shapeOffsetX="0" shapeBlendMode="0" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeBorderWidth="0"/>
-        <shadow shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowUnder="0" shadowOffsetGlobal="1" shadowRadius="1.5" shadowRadiusUnit="MM" shadowScale="100" shadowOffsetDist="1" shadowDraw="0" shadowRadiusMapUnitScale="3x:0,0,0,0,0,0" shadowOpacity="0.7" shadowColor="0,0,0,255" shadowBlendMode="6" shadowOffsetUnit="MM" shadowRadiusAlphaOnly="0" shadowOffsetAngle="135"/>
+      <text-style previewBkgrdColor="#ffffff" fontWordSpacing="0" namedStyle="Regular" multilineHeight="1" fontSizeMapUnitScale="3x:0,0,0,0,0,0" useSubstitutions="0" fontUnderline="0" fontLetterSpacing="0" fontWeight="50" isExpression="0" textColor="0,0,0,255" fontSize="10" fontCapitals="0" blendMode="0" textOpacity="1" fontItalic="0" fieldName="FIRST_DIST" fontFamily=".SF NS Text" fontStrikeout="0" fontSizeUnit="Point">
+        <text-buffer bufferSizeUnits="MM" bufferNoFill="1" bufferDraw="1" bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferColor="255,255,255,255" bufferOpacity="1" bufferBlendMode="0" bufferSize="1" bufferJoinStyle="128"/>
+        <background shapeSizeX="0" shapeOffsetY="0" shapeSizeType="0" shapeOffsetUnit="MM" shapeBlendMode="0" shapeOffsetX="0" shapeRotationType="0" shapeSizeUnit="MM" shapeDraw="0" shapeSizeY="0" shapeJoinStyle="64" shapeRadiiUnit="MM" shapeSVGFile="" shapeBorderWidth="0" shapeType="0" shapeBorderColor="128,128,128,255" shapeRadiiX="0" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeRotation="0" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeBorderWidthUnit="MM" shapeOpacity="1" shapeFillColor="255,255,255,255" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiY="0"/>
+        <shadow shadowColor="0,0,0,255" shadowOffsetDist="1" shadowOpacity="0.7" shadowScale="100" shadowOffsetUnit="MM" shadowRadiusMapUnitScale="3x:0,0,0,0,0,0" shadowRadiusAlphaOnly="0" shadowDraw="0" shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowRadiusUnit="MM" shadowBlendMode="6" shadowUnder="0" shadowOffsetAngle="135" shadowRadius="1.5" shadowOffsetGlobal="1"/>
         <substitutions/>
       </text-style>
-      <text-format leftDirectionSymbol="&lt;" formatNumbers="0" addDirectionSymbol="0" useMaxLineLengthForAutoWrap="1" wrapChar="" plussign="0" autoWrapLength="0" rightDirectionSymbol=">" decimals="3" reverseDirectionSymbol="0" multilineAlign="4294967295" placeDirectionSymbol="0"/>
-      <placement priority="5" dist="0" centroidWhole="0" preserveRotation="1" repeatDistanceMapUnitScale="3x:0,0,0,0,0,0" quadOffset="4" fitInPolygonOnly="0" centroidInside="0" placement="0" repeatDistanceUnits="MM" labelOffsetMapUnitScale="3x:0,0,0,0,0,0" placementFlags="10" distMapUnitScale="3x:0,0,0,0,0,0" repeatDistance="0" maxCurvedCharAngleOut="-25" distUnits="MM" predefinedPositionOrder="TR,TL,BR,BL,R,L,TSR,BSR" xOffset="0" rotationAngle="0" yOffset="0" offsetType="0" offsetUnits="MM" maxCurvedCharAngleIn="25"/>
-      <rendering fontLimitPixelSize="0" scaleMin="0" mergeLines="0" obstacleFactor="1" drawLabels="1" minFeatureSize="0" scaleVisibility="0" upsidedownLabels="0" labelPerPart="0" scaleMax="0" displayAll="0" zIndex="0" maxNumLabels="2000" obstacle="1" fontMaxPixelSize="10000" obstacleType="0" limitNumLabels="0" fontMinPixelSize="3"/>
+      <text-format wrapChar="" formatNumbers="0" decimals="3" addDirectionSymbol="0" leftDirectionSymbol="&lt;" multilineAlign="4294967295" autoWrapLength="0" placeDirectionSymbol="0" plussign="0" rightDirectionSymbol=">" useMaxLineLengthForAutoWrap="1" reverseDirectionSymbol="0"/>
+      <placement offsetUnits="MM" quadOffset="4" dist="0" fitInPolygonOnly="0" xOffset="0" maxCurvedCharAngleOut="-25" repeatDistance="0" preserveRotation="1" centroidWhole="0" offsetType="0" placementFlags="10" predefinedPositionOrder="TR,TL,BR,BL,R,L,TSR,BSR" centroidInside="0" rotationAngle="0" priority="5" yOffset="0" repeatDistanceMapUnitScale="3x:0,0,0,0,0,0" maxCurvedCharAngleIn="25" labelOffsetMapUnitScale="3x:0,0,0,0,0,0" distMapUnitScale="3x:0,0,0,0,0,0" repeatDistanceUnits="MM" placement="0" distUnits="MM"/>
+      <rendering obstacle="1" limitNumLabels="0" upsidedownLabels="0" obstacleType="0" mergeLines="0" maxNumLabels="2000" fontMaxPixelSize="10000" zIndex="0" labelPerPart="0" scaleMax="0" fontMinPixelSize="3" scaleVisibility="0" minFeatureSize="0" scaleMin="0" fontLimitPixelSize="0" obstacleFactor="1" displayAll="0" drawLabels="1"/>
       <dd_properties>
         <Option type="Map">
           <Option value="" type="QString" name="name"/>
@@ -61,13 +61,13 @@
   <blendMode>0</blendMode>
   <featureBlendMode>0</featureBlendMode>
   <layerOpacity>1</layerOpacity>
-  <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-    <DiagramCategory enabled="0" penWidth="0" minScaleDenominator="0" lineSizeScale="3x:0,0,0,0,0,0" opacity="1" penColor="#000000" sizeScale="3x:0,0,0,0,0,0" backgroundColor="#ffffff" penAlpha="255" width="15" labelPlacementMethod="XHeight" sizeType="MM" height="15" rotationOffset="270" backgroundAlpha="255" scaleBasedVisibility="0" scaleDependency="Area" diagramOrientation="Up" minimumSize="0" lineSizeType="MM" barWidth="5" maxScaleDenominator="1e+8">
-      <fontProperties description=".SF NS Text,13,-1,5,50,0,0,0,0,0" style=""/>
-      <attribute label="" color="#000000" field=""/>
+  <SingleCategoryDiagramRenderer attributeLegend="1" diagramType="Histogram">
+    <DiagramCategory height="15" backgroundColor="#ffffff" penWidth="0" lineSizeType="MM" scaleDependency="Area" width="15" backgroundAlpha="255" sizeType="MM" enabled="0" minimumSize="0" minScaleDenominator="0" rotationOffset="270" barWidth="5" labelPlacementMethod="XHeight" diagramOrientation="Up" maxScaleDenominator="1e+8" lineSizeScale="3x:0,0,0,0,0,0" sizeScale="3x:0,0,0,0,0,0" penColor="#000000" scaleBasedVisibility="0" opacity="1" penAlpha="255">
+      <fontProperties style="" description=".SF NS Text,13,-1,5,50,0,0,0,0,0"/>
+      <attribute color="#000000" label="" field=""/>
     </DiagramCategory>
   </SingleCategoryDiagramRenderer>
-  <DiagramLayerSettings showAll="1" obstacle="0" dist="0" placement="1" zIndex="0" priority="0" linePlacementFlags="18">
+  <DiagramLayerSettings linePlacementFlags="18" zIndex="0" obstacle="0" dist="0" showAll="1" priority="0" placement="1">
     <properties>
       <Option type="Map">
         <Option value="" type="QString" name="name"/>
@@ -97,32 +97,32 @@
     </field>
   </fieldConfiguration>
   <aliases>
-    <alias index="0" field="FIRST_DIST" name=""/>
-    <alias index="1" field="dist_cod" name=""/>
+    <alias name="" index="0" field="FIRST_DIST"/>
+    <alias name="" index="1" field="dist_cod"/>
   </aliases>
   <excludeAttributesWMS/>
   <excludeAttributesWFS/>
   <defaults>
-    <default expression="" applyOnUpdate="0" field="FIRST_DIST"/>
-    <default expression="" applyOnUpdate="0" field="dist_cod"/>
+    <default expression="" field="FIRST_DIST" applyOnUpdate="0"/>
+    <default expression="" field="dist_cod" applyOnUpdate="0"/>
   </defaults>
   <constraints>
-    <constraint constraints="0" notnull_strength="0" exp_strength="0" field="FIRST_DIST" unique_strength="0"/>
-    <constraint constraints="0" notnull_strength="0" exp_strength="0" field="dist_cod" unique_strength="0"/>
+    <constraint notnull_strength="0" exp_strength="0" unique_strength="0" constraints="0" field="FIRST_DIST"/>
+    <constraint notnull_strength="0" exp_strength="0" unique_strength="0" constraints="0" field="dist_cod"/>
   </constraints>
   <constraintExpressions>
-    <constraint exp="" desc="" field="FIRST_DIST"/>
-    <constraint exp="" desc="" field="dist_cod"/>
+    <constraint desc="" exp="" field="FIRST_DIST"/>
+    <constraint desc="" exp="" field="dist_cod"/>
   </constraintExpressions>
   <expressionfields/>
   <attributeactions>
     <defaultAction value="{00000000-0000-0000-0000-000000000000}" key="Canvas"/>
   </attributeactions>
-  <attributetableconfig sortOrder="0" sortExpression="" actionWidgetStyle="dropDown">
+  <attributetableconfig actionWidgetStyle="dropDown" sortOrder="0" sortExpression="">
     <columns>
-      <column width="-1" hidden="0" type="field" name="FIRST_DIST"/>
-      <column width="-1" hidden="0" type="field" name="dist_cod"/>
-      <column width="-1" hidden="1" type="actions"/>
+      <column hidden="0" width="-1" type="field" name="FIRST_DIST"/>
+      <column hidden="0" width="-1" type="field" name="dist_cod"/>
+      <column hidden="1" width="-1" type="actions"/>
     </columns>
   </attributetableconfig>
   <conditionalstyles>
@@ -153,8 +153,8 @@ def my_form_open(dialog, layer, feature):
   <featformsuppress>0</featformsuppress>
   <editorlayout>generatedlayout</editorlayout>
   <editable>
-    <field editable="1" name="FIRST_DIST"/>
-    <field editable="1" name="dist_cod"/>
+    <field name="FIRST_DIST" editable="1"/>
+    <field name="dist_cod" editable="1"/>
   </editable>
   <labelOnTop>
     <field labelOnTop="0" name="FIRST_DIST"/>
