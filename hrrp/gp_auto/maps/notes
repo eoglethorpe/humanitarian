@@ -35,3 +35,6 @@ project = QgsProject.instance()
 project.layerStore().mapLayers()
 {'data_7e096e8a_02ee_4133_bb3b_9612ff671220': <qgis._core.QgsVectorLayer object at 0x11e2ff0d8>, 'dists_3a0f703a_ad96_440a_bd4e_36c9a7a9996e': <qgis._core.QgsVectorLayer object at 0x11e2ff438>, 'palikas_c4ab98a0_3e46_4d69_93e8_9688f48cc9b5': <qgis._core.QgsVectorLayer object at 0x11e2ff1f8>, 'wards_d7acaf7e_1dcc_4d8b_a845_25bb6170d029': <qgis._core.QgsVectorLayer object at 0x11e2ff168>}
 w = project.layerStore().mapLayers()['wards_d7acaf7e_1dcc_4d8b_a845_25bb6170d029']
+
+
+#show all
