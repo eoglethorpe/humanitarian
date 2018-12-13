@@ -16,7 +16,7 @@ from openpyxl import load_workbook
 
 class at(object):
     def __init__(self, data_uri, wards_uri, palika_uri, dists_uri, dists_syle, pka_style, pka_hide_style, ward_style,
-                        parent_join_cd, to_join_code, pka_list = None):
+                        parent_join_cd, to_join_code, img_type, pka_list = None):
         self.app = QgsApplication([], False)
         self.app.setPrefixPath('/Applications/QGIS3.app/Contents/MacOS', True)
         self.app.initQgis()
@@ -35,6 +35,7 @@ class at(object):
         self.parent_join_cd = parent_join_cd
         self.to_join_code = to_join_code
         self.pka_list = pka_list
+        self.img_type = img_type
 
     def make_maps(self):
         self.add_layer(self.get_map_data(self.data_uri, 'Map Data'))
@@ -50,7 +51,7 @@ class at(object):
         self.apply_styling('palika_hide', self.pka_hide_style)
         self.apply_styling('wards', self.ward_style)
 
-        self.make_atlas('palikas', 'svg')
+        self.make_atlas('palikas')
         self.write_proj('./etc/inprog.qgs')
 
         self.exit()
@@ -107,7 +108,7 @@ class at(object):
         self.document = QDomDocument()
         self.document.setContent(self.templateContent)
 
-    def make_atlas(self, at_lay, type):
+    def make_atlas(self, at_lay):
         # https: // github.com / carey136 / Standalone - Export - Atlas - QGIS3 / blob / master / AtlasExport.py
         self._open_atlas_styling()
 
@@ -134,7 +135,8 @@ class at(object):
         print("Starting output")
 
         #### image and pdf settings ####
-        if type == 'svg':
+        print(self.img_type )
+        if self.img_type == 'svg':
             image_settings = QgsLayoutExporter(self.myAtlasMap).SvgExportSettings()
             image_settings.dpi = -1
             image_settings.exportMetadata = False
@@ -145,7 +147,7 @@ class at(object):
             if not result == QgsLayoutExporter.Success:
                 print(error)
 
-        elif type == 'img':
+        elif self.img_type == 'img':
             image_settings = QgsLayoutExporter(self.myAtlasMap).ImageExportSettings()
             imageExtension = '.png'
 

@@ -1,38 +1,38 @@
-<Layout printResolution="300" units="mm" worldFileMap="{9f2a5b2b-f0e0-45f3-8a0e-3a9203f3d6c0}" name="Layout n">
- <Snapper snapToGuides="1" tolerance="5" snapToGrid="0" snapToItems="1"/>
- <Grid resolution="10" offsetX="0" resUnits="mm" offsetY="0" offsetUnits="mm"/>
+<Layout worldFileMap="{9f2a5b2b-f0e0-45f3-8a0e-3a9203f3d6c0}" name="Layout n" units="mm" printResolution="300">
+ <Snapper snapToItems="1" snapToGuides="1" snapToGrid="0" tolerance="5"/>
+ <Grid offsetUnits="mm" offsetY="0" resUnits="mm" resolution="10" offsetX="0"/>
  <PageCollection>
-  <symbol alpha="1" clip_to_extent="1" type="fill" name="">
-   <layer enabled="1" class="SimpleFill" pass="0" locked="0">
-    <prop k="border_width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
-    <prop k="color" v="255,255,255,255"/>
-    <prop k="joinstyle" v="miter"/>
-    <prop k="offset" v="0,0"/>
-    <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
-    <prop k="offset_unit" v="MM"/>
-    <prop k="outline_color" v="35,35,35,255"/>
-    <prop k="outline_style" v="no"/>
-    <prop k="outline_width" v="0.26"/>
-    <prop k="outline_width_unit" v="MM"/>
-    <prop k="style" v="solid"/>
+  <symbol name="" alpha="1" clip_to_extent="1" type="fill">
+   <layer enabled="1" locked="0" class="SimpleFill" pass="0">
+    <prop v="3x:0,0,0,0,0,0" k="border_width_map_unit_scale"/>
+    <prop v="255,255,255,255" k="color"/>
+    <prop v="miter" k="joinstyle"/>
+    <prop v="0,0" k="offset"/>
+    <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
+    <prop v="MM" k="offset_unit"/>
+    <prop v="35,35,35,255" k="outline_color"/>
+    <prop v="no" k="outline_style"/>
+    <prop v="0.26" k="outline_width"/>
+    <prop v="MM" k="outline_width_unit"/>
+    <prop v="solid" k="style"/>
     <data_defined_properties>
      <Option type="Map">
-      <Option value="" type="QString" name="name"/>
+      <Option name="name" value="" type="QString"/>
       <Option name="properties"/>
-      <Option value="collection" type="QString" name="type"/>
+      <Option name="type" value="collection" type="QString"/>
      </Option>
     </data_defined_properties>
    </layer>
   </symbol>
-  <LayoutItem positionOnPage="0,0,mm" templateUuid="{fc3ef520-b54e-4fbd-bfdc-a957e1d3c878}" outlineWidthM="0.3,mm" visibility="1" zValue="0" excludeFromExports="0" frame="false" opacity="1" itemRotation="0" blendMode="0" position="0,0,mm" type="65638" positionLock="false" id="" background="true" groupUuid="" size="297,210,mm" referencePoint="0" uuid="{fc3ef520-b54e-4fbd-bfdc-a957e1d3c878}" frameJoinStyle="miter">
-   <FrameColor alpha="255" red="0" green="0" blue="0"/>
-   <BackgroundColor alpha="255" red="255" green="255" blue="255"/>
+  <LayoutItem referencePoint="0" type="65638" frameJoinStyle="miter" excludeFromExports="0" outlineWidthM="0.3,mm" id="" groupUuid="" zValue="0" frame="false" templateUuid="{079cbe3c-cbc3-4e54-bb82-89bf5baf99a5}" visibility="1" positionLock="false" uuid="{079cbe3c-cbc3-4e54-bb82-89bf5baf99a5}" positionOnPage="0,0,mm" position="0,0,mm" opacity="1" blendMode="0" size="297,210,mm" background="true" itemRotation="0">
+   <FrameColor green="0" blue="0" red="0" alpha="255"/>
+   <BackgroundColor green="255" blue="255" red="255" alpha="255"/>
    <LayoutObject>
     <dataDefinedProperties>
      <Option type="Map">
-      <Option value="" type="QString" name="name"/>
+      <Option name="name" value="" type="QString"/>
       <Option name="properties"/>
-      <Option value="collection" type="QString" name="type"/>
+      <Option name="type" value="collection" type="QString"/>
      </Option>
     </dataDefinedProperties>
     <customproperties/>
@@ -40,25 +40,39 @@
   </LayoutItem>
   <GuideCollection visible="1"/>
  </PageCollection>
- <LayoutItem positionOnPage="0,0,mm" templateUuid="{dc89b359-5490-40a0-872d-cb103b8faad1}" outlineWidthM="0.3,mm" visibility="1" zValue="1" excludeFromExports="0" followPresetName="" frame="false" opacity="1" itemRotation="0" blendMode="0" drawCanvasItems="true" position="0,0,mm" keepLayerSet="false" type="65639" positionLock="false" id="" background="true" groupUuid="" mapRotation="0" size="297,210,mm" referencePoint="0" uuid="{dc89b359-5490-40a0-872d-cb103b8faad1}" frameJoinStyle="miter" followPreset="false">
-  <FrameColor alpha="255" red="0" green="0" blue="0"/>
-  <BackgroundColor alpha="255" red="255" green="255" blue="255"/>
+ <LayoutItem referencePoint="0" type="65640" frameJoinStyle="miter" excludeFromExports="0" outlineWidthM="0.3,mm" id="" pictureHeight="7.08584" groupUuid="" zValue="2" frame="false" templateUuid="{956700c9-08f6-41d1-be04-e84c5dba668e}" visibility="1" positionLock="false" pictureWidth="67.7091" uuid="{956700c9-08f6-41d1-be04-e84c5dba668e}" svgFillColor="255,255,255,255" positionOnPage="5.40927,2.05179,mm" mapUuid="" northOffset="0" resizeMode="0" position="5.40927,2.05179,mm" opacity="1" file="../../../../../palika-profile/resources/images/map_legend.svg" pictureRotation="0" anchorPoint="0" svgBorderColor="0,0,0,255" svgBorderWidth="0.2" blendMode="0" size="67.7091,17.1604,mm" background="false" itemRotation="0" northMode="0">
+  <FrameColor green="0" blue="0" red="0" alpha="255"/>
+  <BackgroundColor green="255" blue="255" red="255" alpha="255"/>
   <LayoutObject>
    <dataDefinedProperties>
     <Option type="Map">
-     <Option value="" type="QString" name="name"/>
+     <Option name="name" value="" type="QString"/>
      <Option name="properties"/>
-     <Option value="collection" type="QString" name="type"/>
+     <Option name="type" value="collection" type="QString"/>
     </Option>
    </dataDefinedProperties>
    <customproperties/>
   </LayoutObject>
-  <Extent xmin="83.80061865526523945" ymax="28.78114086350547041" ymin="27.21745895920605562" xmax="86.01211163420298078"/>
+ </LayoutItem>
+ <LayoutItem referencePoint="0" type="65639" frameJoinStyle="miter" mapRotation="0" excludeFromExports="0" outlineWidthM="0.3,mm" id="" groupUuid="" followPresetName="" zValue="1" frame="false" templateUuid="{04fa977a-6de0-4354-a17f-17352aeefaa8}" visibility="1" positionLock="false" drawCanvasItems="true" uuid="{04fa977a-6de0-4354-a17f-17352aeefaa8}" followPreset="false" positionOnPage="0,0,mm" keepLayerSet="false" position="0,0,mm" opacity="1" blendMode="0" size="297,210,mm" background="true" itemRotation="0">
+  <FrameColor green="0" blue="0" red="0" alpha="255"/>
+  <BackgroundColor green="255" blue="255" red="255" alpha="255"/>
+  <LayoutObject>
+   <dataDefinedProperties>
+    <Option type="Map">
+     <Option name="name" value="" type="QString"/>
+     <Option name="properties"/>
+     <Option name="type" value="collection" type="QString"/>
+    </Option>
+   </dataDefinedProperties>
+   <customproperties/>
+  </LayoutObject>
+  <Extent xmax="83.18330479127061494" ymin="27.89696621029826318" ymax="28.09879825805445108" xmin="82.89785660944400547"/>
   <LayerSet/>
-  <AtlasMap margin="0.10000000000000001" scalingMode="2" atlasDriven="1"/>
+  <AtlasMap scalingMode="2" atlasDriven="1" margin="0.10000000000000001"/>
  </LayoutItem>
  <customproperties>
-  <property value="png" key="atlasRasterFormat"/>
+  <property key="atlasRasterFormat" value="png"/>
  </customproperties>
- <Atlas hideCoverage="0" sortFeatures="0" enabled="1" filenamePattern="'output_'||@atlas_featurenumber" coverageLayerProvider="ogr" coverageLayerSource="/Users/ewanog/Documents/work/code/repos/humanitarian/hrrp/gp_auto/maps/hrrp_shapes/palika/GaPaNaPa_hrrp.shp" coverageLayer="palikas_703d4cfd_7f55_42e4_a91a_ee60e58eb295" filterFeatures="0" coverageLayerName="palikas" pageNameExpression=""/>
+ <Atlas coverageLayerSource="/Users/ewanog/Documents/work/code/repos/humanitarian/hrrp/gp_auto/maps/hrrp_shapes/palika/GaPaNaPa_hrrp.shp" coverageLayerProvider="ogr" coverageLayerName="palikas" enabled="1" pageNameExpression="" sortFeatures="0" hideCoverage="0" filenamePattern="'output_'||@atlas_featurenumber" filterFeatures="0" coverageLayer="palikas_453934be_708b_432d_ad55_7a265a6ba27c"/>
 </Layout>
